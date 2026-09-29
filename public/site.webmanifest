@@ -1,0 +1,12 @@
+{
+  "name": "Reforço Escolar da Professora Meire",
+  "short_name": "Reforço Meire",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#215b98",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "lang": "pt-BR"
+}

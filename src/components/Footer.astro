@@ -1,0 +1,152 @@
+---
+import Logo from './Logo.astro';
+import Icon from './ui/Icon.astro';
+import { siteConfig } from '../config/site';
+import type { NavItem } from '../data/navigation';
+import { getContactChannels } from '../utils/contact';
+
+interface Props {
+  items: NavItem[];
+}
+
+const { items } = Astro.props;
+const links = items.filter((item) => item.footer);
+const channels = getContactChannels().filter((c) => c.id !== 'hours');
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Logo variant="light" />
+      <p>{siteConfig.tagline}</p>
+    </div>
+
+    <nav aria-label="Links do rodapé">
+      <h2 class="footer__title">Navegação</h2>
+      <ul class="footer__links">
+        {
+          links.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {
+      channels.length > 0 && (
+        <div>
+          <h2 class="footer__title">Contato</h2>
+          <ul class="footer__links">
+            {channels.map((channel) => (
+              <li>
+                <a
+                  href={channel.href}
+                  target={channel.external ? '_blank' : undefined}
+                  rel={channel.external ? 'noopener noreferrer' : undefined}
+                >
+                  <Icon name={channel.icon} size={18} />
+                  {channel.value}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="container footer__bottom">
+    <p>
+      © <span data-year>{year}</span>{' '}{siteConfig.name}. Todos os direitos reservados.
+    </p>
+    <a href="#inicio" class="footer__top">
+      Voltar ao topo <Icon name="arrow-up" size={16} />
+    </a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = String(new Date().getFullYear())));
+</script>
+
+<style>
+  .footer {
+    padding-top: clamp(3rem, 2.5rem + 3vw, 5rem);
+    background: var(--ink-900);
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer__brand p {
+    max-width: 22rem;
+    margin: 1rem 0 0;
+  }
+
+  .footer__title {
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--yellow-300);
+  }
+
+  .footer__links {
+    display: grid;
+    gap: 0.35rem;
+    list-style: none;
+  }
+
+  .footer__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.3rem;
+    color: rgb(255 255 255 / 0.85);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  .footer__links a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    font-size: 0.9rem;
+  }
+
+  .footer__bottom p {
+    margin: 0;
+  }
+
+  .footer__top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgb(255 255 255 / 0.85);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .footer__top:hover {
+    color: var(--yellow-300);
+  }
+</style>

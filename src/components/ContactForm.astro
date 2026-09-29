@@ -1,0 +1,386 @@
+---
+import Icon from './ui/Icon.astro';
+import { siteConfig } from '../config/site';
+import { hasValue, whatsappNumber } from '../utils/contact';
+
+const endpoint = hasValue(siteConfig.form.endpoint) ? siteConfig.form.endpoint : '';
+// Modo de envio: backend > WhatsApp > demonstrativo
+const mode = endpoint ? 'endpoint' : whatsappNumber ? 'whatsapp' : 'demo';
+
+const difficulties = [
+  'Acompanhar os conteúdos da escola',
+  'Notas abaixo do esperado',
+  'Tarefas de casa',
+  'Organização e rotina de estudos',
+  'Concentração',
+  'Preparação para provas',
+  'Leitura e escrita',
+  'Matemática',
+  'Outra',
+];
+---
+
+<form
+  class="form card reveal"
+  novalidate
+  data-contact-form
+  data-mode={mode}
+  data-endpoint={endpoint || undefined}
+  data-whatsapp={whatsappNumber || undefined}
+  aria-describedby="form-descricao"
+>
+  <h3 class="form__title">Formulário de interesse</h3>
+  <p id="form-descricao" class="form__desc">
+    Campos marcados com <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> são obrigatórios.
+  </p>
+
+  <div class="form__grid">
+    <div class="field">
+      <label for="f-responsavel">Nome do responsável <span aria-hidden="true">*</span></label>
+      <input id="f-responsavel" name="responsavel" type="text" autocomplete="name" required minlength="3" maxlength="80" aria-describedby="e-responsavel" />
+      <p class="field__error" id="e-responsavel" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label for="f-aluno">Nome do aluno <span aria-hidden="true">*</span></label>
+      <input id="f-aluno" name="aluno" type="text" autocomplete="off" required minlength="2" maxlength="80" aria-describedby="e-aluno" />
+      <p class="field__error" id="e-aluno" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label for="f-serie">Idade ou série</label>
+      <input id="f-serie" name="serie" type="text" autocomplete="off" maxlength="40" placeholder="Ex.: 9 anos, 4º ano" />
+    </div>
+
+    <div class="field">
+      <label for="f-telefone">Telefone/WhatsApp <span aria-hidden="true">*</span></label>
+      <input
+        id="f-telefone"
+        name="telefone"
+        type="tel"
+        inputmode="tel"
+        autocomplete="tel-national"
+        required
+        placeholder="(00) 00000-0000"
+        maxlength="16"
+        aria-describedby="e-telefone"
+      />
+      <p class="field__error" id="e-telefone" aria-live="polite"></p>
+    </div>
+
+    <div class="field field--full">
+      <label for="f-dificuldade">Principal dificuldade</label>
+      <div class="select">
+        <select id="f-dificuldade" name="dificuldade">
+          <option value="">Selecione uma opção</option>
+          {difficulties.map((item) => <option value={item}>{item}</option>)}
+        </select>
+        <Icon name="chevron-down" size={18} />
+      </div>
+    </div>
+
+    <div class="field field--full">
+      <label for="f-mensagem">Mensagem</label>
+      <textarea id="f-mensagem" name="mensagem" rows="4" maxlength="1000" placeholder="Conte um pouco sobre o aluno e o que você procura."></textarea>
+    </div>
+  </div>
+
+  {
+    mode === 'demo' && (
+      <p class="form__notice">
+        <Icon name="info" size={18} />
+        Formulário demonstrativo. O canal de atendimento será disponibilizado em breve.
+      </p>
+    )
+  }
+
+  <button type="submit" class="btn btn--primary btn--lg form__submit">
+    <span>Quero receber mais informações</span>
+    <Icon name={mode === 'whatsapp' ? 'whatsapp' : 'send'} size={20} />
+  </button>
+
+  <div class="form__status" role="status" aria-live="polite" data-form-status hidden></div>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const phone = form.elements.namedItem('telefone') as HTMLInputElement;
+
+    const digits = (value: string) => value.replace(/\D/g, '');
+
+    // Máscara simples: (00) 00000-0000
+    phone.addEventListener('input', () => {
+      const d = digits(phone.value).slice(0, 11);
+      let out = d;
+      if (d.length > 2) out = `(${d.slice(0, 2)}) ${d.slice(2)}`;
+      if (d.length > 6) out = `(${d.slice(0, 2)}) ${d.slice(2, d.length - 4)}-${d.slice(-4)}`;
+      phone.value = out;
+    });
+
+    const rules: Record<string, (value: string) => string> = {
+      responsavel: (v) => (v.trim().length < 3 ? 'Informe o nome do responsável.' : ''),
+      aluno: (v) => (v.trim().length < 2 ? 'Informe o nome do aluno.' : ''),
+      telefone: (v) => (digits(v).length < 10 ? 'Informe um telefone com DDD.' : ''),
+    };
+
+    const validateField = (name: string) => {
+      const input = form.elements.namedItem(name) as HTMLInputElement;
+      const message = rules[name](input.value);
+      const error = form.querySelector<HTMLElement>(`#e-${name}`);
+      input.setAttribute('aria-invalid', String(Boolean(message)));
+      if (error) error.textContent = message;
+      return !message;
+    };
+
+    Object.keys(rules).forEach((name) => {
+      const input = form.elements.namedItem(name) as HTMLInputElement;
+      input.addEventListener('blur', () => input.value && validateField(name));
+      input.addEventListener('input', () => input.getAttribute('aria-invalid') === 'true' && validateField(name));
+    });
+
+    const showStatus = (type: 'success' | 'info' | 'error', message: string) => {
+      status.hidden = false;
+      status.className = `form__status form__status--${type}`;
+      status.textContent = message;
+    };
+
+    const buildMessage = (data: Record<string, string>) =>
+      [
+        'Olá, Professora Meire! Gostaria de receber mais informações sobre o reforço escolar.',
+        '',
+        `Responsável: ${data.responsavel}`,
+        `Aluno: ${data.aluno}`,
+        data.serie && `Idade/série: ${data.serie}`,
+        data.dificuldade && `Principal dificuldade: ${data.dificuldade}`,
+        `Telefone: ${data.telefone}`,
+        data.mensagem && `\nMensagem: ${data.mensagem}`,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.hidden = true;
+
+      const valid = Object.keys(rules).map(validateField).every(Boolean);
+      if (!valid) {
+        const firstInvalid = form.querySelector<HTMLElement>('[aria-invalid="true"]');
+        firstInvalid?.focus();
+        showStatus('error', 'Confira os campos destacados antes de enviar.');
+        return;
+      }
+
+      const data = Object.fromEntries(
+        Array.from(new FormData(form).entries()).map(([k, v]) => [k, String(v).trim()]),
+      ) as Record<string, string>;
+      const { mode, endpoint, whatsapp } = form.dataset;
+
+      if (mode === 'endpoint' && endpoint) {
+        submit.disabled = true;
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) throw new Error(String(response.status));
+          form.reset();
+          showStatus('success', 'Mensagem enviada! A Professora Meire entrará em contato em breve.');
+        } catch {
+          showStatus('error', 'Não foi possível enviar agora. Tente novamente em alguns instantes.');
+        } finally {
+          submit.disabled = false;
+        }
+        return;
+      }
+
+      if (mode === 'whatsapp' && whatsapp) {
+        window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(buildMessage(data))}`, '_blank', 'noopener');
+        showStatus('info', 'Abrimos o WhatsApp com a sua mensagem pronta. É só confirmar o envio por lá.');
+        return;
+      }
+
+      showStatus(
+        'info',
+        'Obrigado pelo interesse! Este formulário ainda é demonstrativo e nenhuma mensagem foi enviada. O canal de atendimento será disponibilizado em breve.',
+      );
+    });
+  }
+</script>
+
+<style>
+  .form {
+    padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+
+  .form__title {
+    font-size: var(--fs-600);
+    margin-bottom: 0.25rem;
+  }
+
+  .form__desc {
+    font-size: 0.9rem;
+    color: var(--ink-500);
+    margin-bottom: 1.5rem;
+  }
+
+  .form__grid {
+    display: grid;
+    gap: 1.1rem 1.25rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .field label {
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+
+  .field label span {
+    color: var(--coral-500);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #cfd8e3;
+    border-radius: 12px;
+    background: var(--white);
+    font-size: 1rem;
+    transition:
+      border-color 0.2s var(--ease),
+      box-shadow 0.2s var(--ease);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: #8592a5;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--blue-600);
+    box-shadow: 0 0 0 4px rgb(42 109 179 / 0.15);
+  }
+
+  .field [aria-invalid='true'] {
+    border-color: #c2412d;
+    box-shadow: 0 0 0 4px rgb(194 65 45 / 0.1);
+  }
+
+  .field__error {
+    margin: 0;
+    min-height: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b2381f;
+  }
+
+  .field__error:empty {
+    display: none;
+  }
+
+  .select {
+    position: relative;
+  }
+
+  .select select {
+    appearance: none;
+    padding-right: 2.75rem;
+    cursor: pointer;
+  }
+
+  .select :global(.icon) {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--ink-500);
+  }
+
+  .form__notice {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    margin: 1.5rem 0 0;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    background: var(--yellow-50);
+    border: 1px solid var(--yellow-100);
+    font-size: 0.9rem;
+    color: #6b4c00;
+  }
+
+  .form__notice :global(.icon) {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .form__submit {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .form__submit:disabled {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  .form__status {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .form__status--success {
+    background: var(--green-50);
+    color: var(--green-700);
+    border: 1px solid var(--green-100);
+  }
+
+  .form__status--info {
+    background: var(--blue-50);
+    color: var(--blue-900);
+    border: 1px solid var(--blue-100);
+  }
+
+  .form__status--error {
+    background: #fdf0ed;
+    color: #a3341c;
+    border: 1px solid #f6d3ca;
+  }
+
+  @media (min-width: 640px) {
+    .form__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field--full {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

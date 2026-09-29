@@ -1,0 +1,1417 @@
+Quero que você atue como um desenvolvedor Full Stack Sênior, especialista em UI/UX, landing pages de alta conversão, responsividade, acessibilidade, SEO e organização de código.
+
+Sua tarefa é desenvolver um site profissional completo para um serviço de reforço escolar chamado:
+
+# Reforço Escolar da Professora Meire
+
+O site será voltado principalmente para PAIS E RESPONSÁVEIS de crianças e adolescentes que estão procurando acompanhamento escolar, reforço, apoio nas tarefas, melhoria do desempenho acadêmico e maior confiança nos estudos.
+
+O principal objetivo da landing page é gerar CONFIANÇA.
+
+Ao entrar no site, o pai ou responsável precisa entender rapidamente:
+
+- Quem é a Professora Meire;
+- Como funciona o reforço escolar;
+- Para quais alunos o serviço é indicado;
+- Quais benefícios o acompanhamento proporciona;
+- Como são realizadas as aulas;
+- Como é o ambiente de aprendizagem;
+- Quais disciplinas ou áreas podem ser trabalhadas;
+- Como entrar em contato;
+- Como solicitar mais informações ou demonstrar interesse.
+
+Os contatos oficiais ainda serão adicionados posteriormente.
+
+Por isso, prepare toda a estrutura de contato utilizando dados centralizados em arquivo/configuração, para que telefone, WhatsApp, Instagram, endereço e outras informações possam ser preenchidos posteriormente sem precisar alterar vários arquivos do projeto.
+
+---
+
+# 1. PRIMEIRO PASSO: ANALISAR O PROJETO
+
+Antes de começar a desenvolver:
+
+1. Analise toda a estrutura existente do projeto.
+2. Identifique tecnologias, dependências e arquivos já existentes.
+3. Não destrua funcionalidades existentes sem necessidade.
+4. Organize o projeto de maneira profissional.
+5. Separe componentes, estilos, dados, páginas e recursos por responsabilidade.
+6. Evite arquivos gigantes.
+7. Evite repetir código.
+8. Crie componentes reutilizáveis sempre que fizer sentido.
+
+Se o projeto estiver vazio, crie a estrutura completa necessária.
+
+Priorize uma arquitetura simples, organizada e fácil de dar manutenção.
+
+---
+
+# 2. PASTAS DE IMAGENS E VÍDEOS
+
+Na pasta do projeto existirão pastas contendo:
+
+- imagens;
+- vídeos.
+
+Esses arquivos serão fornecidos para representar o trabalho real da Professora Meire.
+
+IMPORTANTE:
+
+Antes de utilizar imagens genéricas ou placeholders, procure os arquivos existentes no projeto.
+
+Faça uma inspeção das pastas de mídia e identifique:
+
+- fotos da professora;
+- fotos do ambiente;
+- atividades escolares;
+- alunos estudando;
+- materiais pedagógicos;
+- registros das aulas;
+- vídeos;
+- imagens institucionais;
+- possíveis logotipos;
+- outros materiais relevantes.
+
+Utilize prioritariamente essas imagens e vídeos reais na composição da landing page.
+
+Não utilize nomes de arquivos fictícios caso existam arquivos reais disponíveis.
+
+Crie uma implementação que permita substituir, adicionar ou remover imagens posteriormente com facilidade.
+
+Se houver muitas imagens, crie uma galeria dinâmica baseada em uma lista/array/configuração, evitando duplicação de código.
+
+Faça o mesmo para vídeos.
+
+---
+
+# 3. CONCEITO VISUAL
+
+O site deve transmitir:
+
+- confiança;
+- carinho;
+- acolhimento;
+- profissionalismo;
+- educação;
+- proximidade;
+- responsabilidade;
+- segurança;
+- desenvolvimento;
+- atenção individual;
+- ambiente amigável para crianças e adolescentes.
+
+Evite aparência excessivamente infantil.
+
+O público que toma a decisão de contratação são principalmente os pais.
+
+Portanto, o visual deve conseguir conversar simultaneamente com:
+
+PAIS:
+- profissionalismo;
+- confiança;
+- segurança;
+- resultados;
+- organização.
+
+CRIANÇAS E ADOLESCENTES:
+- leveza;
+- cores amigáveis;
+- ambiente agradável;
+- aprendizado sem pressão excessiva.
+
+Utilize design moderno.
+
+Sugestão de identidade:
+
+- tons claros;
+- azul;
+- verde;
+- amarelo suave;
+- branco;
+- pequenos detalhes coloridos.
+
+Não exagere nas cores.
+
+Evite poluição visual.
+
+Utilize bastante espaço em branco.
+
+Use sombras suaves, cantos arredondados e elementos gráficos relacionados à educação.
+
+Exemplos:
+
+- livros;
+- lápis;
+- cadernos;
+- estrelas;
+- letras;
+- números;
+- formas geométricas;
+- elementos escolares.
+
+Utilize esses elementos apenas como detalhes visuais.
+
+---
+
+# 4. RESPONSIVIDADE
+
+O site deve funcionar perfeitamente em:
+
+- desktop;
+- notebook;
+- tablet;
+- celular.
+
+Desenvolva com abordagem responsiva.
+
+Nenhum conteúdo pode:
+
+- ultrapassar a tela;
+- quebrar layout;
+- sobrepor outros elementos;
+- apresentar textos ilegíveis;
+- gerar scroll horizontal desnecessário.
+
+Teste principalmente:
+
+375px
+390px
+430px
+768px
+1024px
+1366px
+1440px
+1920px
+
+---
+
+# 5. NAVEGAÇÃO
+
+Embora seja uma landing page, quero que o conteúdo seja dividido em SEÇÕES acessíveis através de uma barra de navegação.
+
+Exemplo:
+
+INÍCIO
+SOBRE A PROFESSORA
+COMO FUNCIONA
+BENEFÍCIOS
+ACOMPANHAMENTO
+GALERIA
+DEPOIMENTOS
+DÚVIDAS
+CONTATO
+
+A navegação deve utilizar rolagem suave até cada seção.
+
+No desktop:
+
+Menu horizontal.
+
+No celular:
+
+Menu hambúrguer elegante.
+
+Ao clicar em algum item, o menu mobile deve fechar automaticamente.
+
+A barra de navegação pode ficar fixa no topo ao realizar scroll.
+
+Adicione uma leve alteração visual no header quando a página for rolada.
+
+---
+
+# 6. HEADER
+
+Criar um header profissional contendo:
+
+Logo ou nome:
+
+Reforço Escolar
+Professora Meire
+
+Menu de navegação.
+
+Botão de destaque:
+
+"Quero saber mais"
+
+ou:
+
+"Falar com a Professora Meire"
+
+Enquanto o WhatsApp ainda não estiver configurado, o botão poderá direcionar para a seção de contato.
+
+Estruture o código para que posteriormente seja possível mudar facilmente para:
+
+https://wa.me/NUMERO
+
+---
+
+# 7. HERO / PRIMEIRA DOBRA
+
+Essa é uma das partes mais importantes.
+
+O visitante precisa entender imediatamente qual é o serviço.
+
+Criar uma seção Hero forte.
+
+Sugestão de headline:
+
+"Aprender pode ser mais leve, seguro e confiante."
+
+Subheadline:
+
+"Acompanhamento escolar personalizado para ajudar crianças e adolescentes a superar dificuldades, fortalecer o aprendizado e desenvolver mais confiança nos estudos."
+
+Adicionar CTA principal:
+
+"Conheça o reforço escolar"
+
+Adicionar CTA secundário:
+
+"Falar com a Professora Meire"
+
+Adicionar imagem real da Professora Meire ou de algum ambiente/aula encontrada na pasta de imagens.
+
+Se houver uma foto adequada da professora, dê preferência a ela.
+
+Adicionar pequenos elementos de confiança próximos ao Hero:
+
+- acompanhamento personalizado;
+- apoio nas atividades escolares;
+- atenção às necessidades de cada aluno;
+- ambiente acolhedor.
+
+Não inventar números de alunos atendidos, anos de experiência ou percentuais caso essas informações não estejam disponíveis.
+
+---
+
+# 8. SEÇÃO DE IDENTIFICAÇÃO DO PROBLEMA
+
+Criar uma seção direcionada aos pais.
+
+Exemplo de título:
+
+"Seu filho está enfrentando alguma dessas dificuldades?"
+
+Criar cards ou itens contendo situações como:
+
+- dificuldade para acompanhar conteúdos da escola;
+- notas abaixo do esperado;
+- dificuldade para realizar tarefas sozinho;
+- falta de organização nos estudos;
+- dificuldade de concentração;
+- insegurança antes das avaliações;
+- conteúdos acumulados;
+- necessidade de acompanhamento mais próximo;
+- falta de confiança para perguntar em sala;
+- dificuldade em criar uma rotina de estudos.
+
+Finalizar com uma mensagem positiva.
+
+Exemplo:
+
+"Com acompanhamento, paciência e uma metodologia adequada, estudar pode se tornar muito mais simples."
+
+---
+
+# 9. SEÇÃO SOBRE A PROFESSORA MEIRE
+
+Criar uma seção:
+
+"Conheça a Professora Meire"
+
+Utilizar foto real encontrada na pasta de imagens, caso disponível.
+
+O texto deve transmitir proximidade e credibilidade.
+
+Não inventar:
+
+- formação acadêmica;
+- diplomas;
+- certificados;
+- quantidade de anos de experiência;
+- número de alunos;
+- instituições;
+- especializações.
+
+Se essas informações não estiverem disponíveis, escrever textos neutros e deixar a estrutura preparada para edição posterior.
+
+Exemplo:
+
+"A Professora Meire acredita que cada aluno possui seu próprio ritmo de aprendizagem. Por isso, o acompanhamento busca compreender as dificuldades individuais e criar um ambiente onde estudar seja mais leve, organizado e produtivo."
+
+Adicionar espaço para futuramente cadastrar:
+
+- formação;
+- experiência;
+- metodologias;
+- cursos;
+- especializações.
+
+---
+
+# 10. COMO FUNCIONA O REFORÇO ESCOLAR
+
+Criar uma seção visual com etapas.
+
+Exemplo:
+
+1. Entendemos as dificuldades
+
+Identificação das principais necessidades do aluno.
+
+2. Organizamos os estudos
+
+Definição dos conteúdos que precisam de maior atenção.
+
+3. Reforçamos os conteúdos
+
+Explicações, exercícios e acompanhamento.
+
+4. Acompanhamos a evolução
+
+Observação contínua das dificuldades e avanços.
+
+Utilizar cards ou uma timeline visual.
+
+---
+
+# 11. BENEFÍCIOS
+
+Criar uma seção:
+
+"Mais do que melhorar as notas"
+
+Mostrar benefícios como:
+
+- melhor compreensão dos conteúdos;
+- desenvolvimento da autonomia;
+- criação de rotina de estudos;
+- maior organização;
+- mais segurança para realizar atividades;
+- preparação para avaliações;
+- apoio nas tarefas escolares;
+- fortalecimento da autoestima acadêmica;
+- redução do acúmulo de conteúdo;
+- acompanhamento próximo.
+
+Apresentar em cards visualmente agradáveis.
+
+---
+
+# 12. PARA QUEM É INDICADO
+
+Criar uma seção explicando que o serviço é destinado a:
+
+- crianças;
+- pré-adolescentes;
+- adolescentes;
+- estudantes que precisam reforçar conteúdos;
+- estudantes com dificuldades específicas;
+- estudantes que precisam melhorar organização;
+- alunos que precisam de acompanhamento nas tarefas;
+- alunos que querem se preparar melhor para avaliações.
+
+Não definir série ou idade específica se essa informação ainda não tiver sido informada.
+
+Prepare essa informação em configuração para ser facilmente atualizada posteriormente.
+
+---
+
+# 13. DISCIPLINAS
+
+Criar uma seção:
+
+"Áreas de acompanhamento"
+
+Não inventar disciplinas que a professora não confirmou.
+
+Utilizar configuração centralizada.
+
+Pode inicialmente apresentar categorias editáveis como:
+
+- Matemática;
+- Língua Portuguesa;
+- Leitura e interpretação;
+- Produção de texto;
+- Atividades escolares;
+- Preparação para avaliações;
+- Organização dos estudos.
+
+Mas deixar claramente no código que essas informações são facilmente editáveis.
+
+Caso existam documentos no projeto informando disciplinas reais, utilizar essas informações.
+
+---
+
+# 14. METODOLOGIA
+
+Criar seção:
+
+"Um acompanhamento pensado para cada aluno"
+
+Explicar que os estudantes possuem diferentes ritmos.
+
+Destacar:
+
+- explicação individualizada;
+- revisão de conteúdos;
+- exercícios;
+- acompanhamento das tarefas;
+- identificação das dificuldades;
+- reforço dos conteúdos fundamentais;
+- prática;
+- organização da rotina.
+
+Não utilizar termos clínicos ou prometer resultados garantidos.
+
+---
+
+# 15. GALERIA
+
+Criar uma seção chamada:
+
+"Um pouco do nosso dia a dia"
+
+Utilizar fotos reais das pastas existentes.
+
+Criar galeria moderna.
+
+Desktop:
+grid organizado.
+
+Mobile:
+layout adaptativo.
+
+Ao clicar em uma foto, se fizer sentido, abrir em modal/lightbox.
+
+Adicionar animação suave.
+
+Não prejudicar desempenho carregando todas as imagens em alta resolução imediatamente.
+
+Utilizar lazy loading.
+
+---
+
+# 16. VÍDEOS
+
+Caso existam vídeos na pasta de vídeos, criar:
+
+"Veja um pouco do nosso trabalho"
+
+Utilizar players organizados em cards.
+
+Os vídeos não devem iniciar automaticamente.
+
+Não reproduzir áudio automaticamente.
+
+Utilizar:
+
+controls
+preload apropriado
+poster, caso disponível
+
+Se houver muitos vídeos, mostrar somente alguns inicialmente e permitir expandir a seção.
+
+Se não existirem vídeos, não exibir uma área vazia ou quebrada.
+
+---
+
+# 17. DEPOIMENTOS
+
+Criar estrutura para depoimentos.
+
+Título:
+
+"O que as famílias dizem"
+
+IMPORTANTE:
+
+Não inventar depoimentos de pais.
+
+Caso não existam depoimentos reais no projeto, criar a estrutura no código, porém utilizar estado vazio elegante ou deixar a seção facilmente desativável.
+
+Não criar avaliações falsas.
+
+Preparar cada depoimento com campos como:
+
+name
+relationship
+text
+rating opcional
+
+Exemplo:
+
+{
+  name: "",
+  relationship: "Responsável por aluno",
+  text: ""
+}
+
+---
+
+# 18. RESULTADOS / CONFIANÇA
+
+Criar uma seção focada em confiança, sem fabricar métricas.
+
+Título possível:
+
+"Acompanhamento próximo em cada etapa"
+
+Abordar:
+
+- comunicação;
+- acompanhamento;
+- evolução;
+- rotina;
+- dificuldades;
+- comprometimento;
+- atenção individual.
+
+Não utilizar frases como:
+
+"100% dos alunos melhoram"
+
+ou:
+
+"Resultado garantido"
+
+Evitar qualquer promessa impossível de comprovar.
+
+---
+
+# 19. FAQ
+
+Criar seção:
+
+"Dúvidas frequentes"
+
+Formato accordion.
+
+Perguntas sugeridas:
+
+"Para quais idades o reforço escolar é indicado?"
+
+"Quais matérias são trabalhadas?"
+
+"Como funcionam as aulas?"
+
+"As aulas são individuais ou em grupo?"
+
+"Existe acompanhamento para provas?"
+
+"A professora auxilia nas atividades da escola?"
+
+"Como posso saber horários disponíveis?"
+
+"Como entrar em contato?"
+
+Se uma informação não estiver definida, escreva respostas neutras.
+
+Exemplo:
+
+"Os formatos de acompanhamento e horários podem variar de acordo com a disponibilidade. Entre em contato para consultar as opções atuais."
+
+---
+
+# 20. CTA FINAL
+
+Antes do rodapé, criar uma seção de conversão visualmente forte.
+
+Título sugerido:
+
+"Seu filho não precisa enfrentar as dificuldades escolares sozinho."
+
+Texto:
+
+"Um acompanhamento próximo pode ajudar a transformar dúvidas em aprendizado, organização e mais confiança nos estudos."
+
+Botão:
+
+"Quero saber mais"
+
+Segundo botão opcional:
+
+"Entrar em contato"
+
+---
+
+# 21. CONTATO
+
+Criar seção:
+
+"Vamos conversar?"
+
+Adicionar espaços para:
+
+WhatsApp
+Telefone
+Instagram
+E-mail
+Endereço
+Horários
+
+Como essas informações serão colocadas posteriormente, centralizar todos os dados.
+
+Por exemplo:
+
+siteConfig.ts
+
+ou:
+
+contactData.js
+
+Exemplo conceitual:
+
+const contact = {
+  whatsapp: "",
+  phone: "",
+  instagram: "",
+  email: "",
+  address: "",
+  openingHours: ""
+}
+
+A interface deve identificar elegantemente dados ainda não cadastrados.
+
+Não mostrar:
+
+"undefined"
+
+"null"
+
+links vazios
+
+botões quebrados.
+
+---
+
+# 22. FORMULÁRIO DE INTERESSE
+
+Criar formulário visual com:
+
+Nome do responsável
+Nome do aluno
+Idade ou série
+Principal dificuldade
+Telefone/WhatsApp
+Mensagem
+
+Botão:
+
+"Quero receber mais informações"
+
+Neste momento, caso não exista backend, o formulário pode funcionar apenas no frontend.
+
+Porém:
+
+- validar campos;
+- mostrar mensagens adequadas;
+- evitar erro no console;
+- preparar a arquitetura para integração futura.
+
+Não simular que uma mensagem foi realmente enviada para um servidor se não existir backend.
+
+Nesse caso, informar corretamente:
+
+"Formulário demonstrativo. O canal de atendimento será disponibilizado em breve."
+
+OU preparar geração de mensagem para WhatsApp quando o número for cadastrado.
+
+---
+
+# 23. FOOTER
+
+Criar rodapé profissional.
+
+Exemplo:
+
+Reforço Escolar da Professora Meire
+
+"Aprendizado, atenção e confiança em cada etapa."
+
+Links:
+
+Início
+Sobre
+Como funciona
+Galeria
+Dúvidas
+Contato
+
+Adicionar:
+
+© ANO ATUAL Reforço Escolar da Professora Meire.
+Todos os direitos reservados.
+
+Ano deve ser dinâmico.
+
+---
+
+# 24. BOTÃO FLUTUANTE
+
+Preparar um botão flutuante de WhatsApp.
+
+Somente ativá-lo automaticamente quando existir número válido cadastrado.
+
+Em desktop:
+lateral inferior direita.
+
+Em mobile:
+posição adequada sem atrapalhar outros elementos.
+
+Adicionar aria-label.
+
+---
+
+# 25. ANIMAÇÕES
+
+Utilizar animações discretas.
+
+Exemplos:
+
+fade-in;
+slide suave;
+hover nos cards;
+microinterações;
+aparecimento conforme scroll.
+
+Evitar animações exageradas.
+
+Respeitar:
+
+prefers-reduced-motion
+
+para pessoas que preferem menos movimento.
+
+---
+
+# 26. UX
+
+O site precisa ser extremamente simples de navegar.
+
+Um pai deve conseguir localizar rapidamente:
+
+- o que é oferecido;
+- quem é a professora;
+- como funciona;
+- fotos;
+- benefícios;
+- contato.
+
+CTAs precisam aparecer em pontos estratégicos.
+
+Não colocar CTA em absolutamente toda seção.
+
+Equilibrar conteúdo e conversão.
+
+---
+
+# 27. PERFORMANCE
+
+Aplicar boas práticas:
+
+- lazy loading;
+- otimização de imagens;
+- dimensionamento adequado;
+- evitar bibliotecas desnecessárias;
+- evitar JavaScript excessivo;
+- minimizar re-renderizações;
+- evitar vídeos carregados desnecessariamente;
+- utilizar fontes de forma otimizada;
+- evitar layout shift.
+
+Buscar excelente desempenho em Lighthouse.
+
+---
+
+# 28. ACESSIBILIDADE
+
+Implementar:
+
+- HTML semântico;
+- aria-label onde necessário;
+- navegação por teclado;
+- foco visível;
+- contraste adequado;
+- textos alternativos em imagens;
+- labels em formulários;
+- botões semanticamente corretos;
+- headings seguindo hierarquia lógica;
+- suporte a leitores de tela.
+
+Não utilizar div clicável quando deveria existir button ou link.
+
+---
+
+# 29. SEO
+
+Configurar SEO básico.
+
+Title:
+
+Reforço Escolar da Professora Meire | Acompanhamento Escolar
+
+Description sugerida:
+
+"Reforço escolar com acompanhamento próximo e personalizado para crianças e adolescentes. Conheça o trabalho da Professora Meire."
+
+Adicionar:
+
+Open Graph
+meta description
+canonical preparado
+favicon
+robots
+sitemap, se fizer sentido para a stack
+dados estruturados básicos quando apropriado.
+
+Não inventar endereço ou localização.
+
+---
+
+# 30. COMPONENTIZAÇÃO
+
+Organizar componentes aproximadamente como:
+
+components/
+  Header
+  Hero
+  ProblemSection
+  AboutTeacher
+  HowItWorks
+  Benefits
+  TargetAudience
+  Subjects
+  Methodology
+  Gallery
+  VideoSection
+  Testimonials
+  FAQ
+  Contact
+  ContactForm
+  FinalCTA
+  Footer
+  WhatsAppButton
+
+Criar também:
+
+data/
+config/
+assets/
+styles/
+utils/
+
+ou estrutura equivalente à tecnologia escolhida.
+
+Não precisa seguir exatamente esses nomes caso exista uma organização melhor para o framework utilizado.
+
+---
+
+# 31. DADOS CENTRALIZADOS
+
+Evite deixar textos importantes espalhados em dezenas de componentes.
+
+Crie estrutura centralizada para informações alteráveis.
+
+Exemplo:
+
+siteConfig
+
+teacherData
+
+contactData
+
+subjectsData
+
+faqData
+
+testimonialsData
+
+galleryData
+
+videosData
+
+navigationData
+
+Dessa maneira será simples administrar o site posteriormente.
+
+---
+
+# 32. IMAGENS
+
+Ao encontrar imagens reais na pasta do projeto:
+
+1. Analise seus nomes.
+2. Identifique o contexto possível.
+3. Utilize as melhores imagens nas seções adequadas.
+4. Evite repetir excessivamente a mesma imagem.
+5. Utilize object-fit para evitar deformação.
+6. Mantenha proporção adequada.
+7. Configure loading lazy quando indicado.
+8. Adicione textos ALT coerentes.
+
+Não use imagens externas sem necessidade caso o projeto já forneça material suficiente.
+
+---
+
+# 33. VÍDEOS
+
+Faça uma leitura da pasta de vídeos.
+
+Identifique formatos existentes.
+
+Exemplos:
+
+.mp4
+.webm
+.mov
+
+Utilize compatibilidade adequada no navegador.
+
+Não prejudique o carregamento inicial.
+
+---
+
+# 34. MOBILE FIRST
+
+Dê atenção especial ao celular.
+
+No mobile:
+
+- texto precisa continuar confortável;
+- imagens precisam manter bom enquadramento;
+- cards devem reorganizar;
+- menu deve ser simples;
+- CTAs precisam ter bom tamanho;
+- formulário deve ser fácil de preencher;
+- não deve existir scroll horizontal;
+- vídeos devem respeitar proporção;
+- títulos não devem ficar gigantes.
+
+---
+
+# 35. DETALHES DE DESIGN
+
+Quero aparência comparável a uma landing page profissional moderna.
+
+Utilize:
+
+- typography hierarchy;
+- espaçamento consistente;
+- container central;
+- largura máxima confortável;
+- cards modernos;
+- bordas discretas;
+- sombras suaves;
+- ícones coerentes;
+- backgrounds alternados entre seções.
+
+Evite:
+
+- gradientes exagerados;
+- neon;
+- efeitos futuristas;
+- fundo completamente escuro;
+- aparência de site de tecnologia;
+- elementos excessivamente infantis;
+- excesso de ilustrações.
+
+O objetivo é:
+
+EDUCAÇÃO + ACOLHIMENTO + CONFIANÇA + PROFISSIONALISMO.
+
+---
+
+# 36. COPYWRITING
+
+Todos os textos devem falar principalmente com pais e responsáveis.
+
+Evitar linguagem excessivamente corporativa.
+
+Utilizar comunicação humana.
+
+Exemplo:
+
+RUIM:
+
+"Soluções educacionais disruptivas para performance acadêmica."
+
+BOM:
+
+"Cada criança aprende de um jeito. Com acompanhamento e atenção, as dificuldades podem se transformar em aprendizado e confiança."
+
+O texto precisa transmitir:
+
+"Meu filho será tratado com atenção."
+
+"A professora vai observar onde ele está tendo dificuldades."
+
+"Existe cuidado e acompanhamento."
+
+"Posso confiar nesse serviço."
+
+---
+
+# 37. TOM DE COMUNICAÇÃO
+
+Utilizar:
+
+acolhedor;
+claro;
+profissional;
+simpático;
+seguro;
+humano.
+
+Evitar:
+
+promessas milagrosas;
+pressão comercial;
+gatilhos exagerados;
+linguagem agressiva de vendas.
+
+---
+
+# 38. NÃO INVENTAR INFORMAÇÕES
+
+Esta regra é extremamente importante.
+
+NÃO INVENTAR:
+
+- telefone;
+- endereço;
+- WhatsApp;
+- Instagram;
+- formação;
+- certificados;
+- anos de experiência;
+- quantidade de alunos;
+- depoimentos;
+- avaliações;
+- percentuais de melhora;
+- localização;
+- preços;
+- horários;
+- número de vagas.
+
+Quando algum dado não estiver disponível, preparar o campo/configuração para inclusão posterior.
+
+---
+
+# 39. EXPERIÊNCIA VISUAL
+
+Quero que o usuário tenha a seguinte sensação durante o scroll:
+
+1ª tela:
+"Entendi o serviço."
+
+2ª:
+"Isso parece atender o problema do meu filho."
+
+3ª:
+"Quero conhecer melhor essa professora."
+
+4ª:
+"Entendi como funciona."
+
+5ª:
+"Parece um acompanhamento bem estruturado."
+
+6ª:
+"Consigo ver o ambiente e o trabalho."
+
+7ª:
+"Minhas dúvidas estão respondidas."
+
+8ª:
+"Quero conversar."
+
+Construa a ordem das seções pensando nessa jornada.
+
+---
+
+# 40. ORDEM RECOMENDADA
+
+Header
+
+Hero
+
+Problemas enfrentados pelos alunos
+
+Sobre a Professora Meire
+
+Como funciona
+
+Benefícios
+
+Para quem é indicado
+
+Áreas de acompanhamento
+
+Metodologia
+
+Galeria
+
+Vídeos
+
+Depoimentos
+
+FAQ
+
+Contato/Formulário
+
+CTA final
+
+Footer
+
+Você pode ajustar a ordem caso identifique uma experiência melhor.
+
+---
+
+# 41. ESTADO DE DADOS AUSENTES
+
+Crie tratamento elegante para dados não cadastrados.
+
+Exemplo:
+
+Se não houver depoimentos:
+não renderizar a seção ou utilizar estado vazio em ambiente administrativo.
+
+Se não houver vídeos:
+não renderizar a seção.
+
+Se não houver WhatsApp:
+botão leva para contato.
+
+Se não houver Instagram:
+não mostrar ícone sem link.
+
+Se não houver endereço:
+não mostrar mapa.
+
+A landing page nunca deve parecer inacabada por causa de dados faltantes.
+
+---
+
+# 42. QUALIDADE DO CÓDIGO
+
+Código deve ser:
+
+- limpo;
+- legível;
+- organizado;
+- reutilizável;
+- comentado somente onde fizer sentido;
+- fácil de expandir;
+- fácil de manter.
+
+Evite overengineering.
+
+Não crie arquitetura complexa sem necessidade.
+
+---
+
+# 43. CONSOLE
+
+Ao terminar:
+
+Verifique erros no console.
+
+Corrija:
+
+- imports quebrados;
+- imagens não encontradas;
+- warnings importantes;
+- dependências ausentes;
+- erros de hidratação;
+- links inválidos;
+- erros de formulário;
+- erros JavaScript.
+
+Objetivo:
+
+zero erros relevantes no console.
+
+---
+
+# 44. TESTES FINAIS
+
+Antes de considerar o trabalho concluído, testar:
+
+- abertura da página;
+- header;
+- menu;
+- menu mobile;
+- links internos;
+- scroll suave;
+- CTAs;
+- galeria;
+- modal de imagens;
+- vídeos;
+- FAQ;
+- formulário;
+- responsividade;
+- imagens;
+- footer;
+- botão de contato;
+- ausência de scroll horizontal.
+
+---
+
+# 45. TRATAMENTO DE IMAGENS E VÍDEOS
+
+Não remova os arquivos originais enviados.
+
+Se precisar gerar versões otimizadas, coloque-as em diretório próprio.
+
+Exemplo:
+
+assets/optimized/
+
+Preserve os originais.
+
+---
+
+# 46. DOCUMENTAÇÃO
+
+Criar ou atualizar README.md contendo:
+
+# Reforço Escolar da Professora Meire
+
+Incluir:
+
+- objetivo do projeto;
+- tecnologias utilizadas;
+- como instalar;
+- como executar;
+- como gerar build;
+- estrutura das pastas;
+- onde alterar telefone;
+- onde alterar WhatsApp;
+- onde alterar Instagram;
+- onde colocar imagens;
+- onde colocar vídeos;
+- onde alterar disciplinas;
+- onde cadastrar depoimentos;
+- onde alterar textos principais;
+- como publicar o projeto.
+
+---
+
+# 47. PREPARAÇÃO PARA FUTURAS FUNCIONALIDADES
+
+Não implementar agora funcionalidades complexas desnecessárias, mas deixar a arquitetura preparada para futuramente receber:
+
+- integração WhatsApp;
+- formulário com backend;
+- Google Analytics;
+- Meta Pixel;
+- painel administrativo;
+- agendamento;
+- cadastro de alunos;
+- horários disponíveis;
+- depoimentos;
+- blog;
+- domínio próprio;
+- integração com Google Maps.
+
+Não criar essas funcionalidades agora se não forem necessárias.
+
+---
+
+# 48. CONFIGURAÇÃO PRINCIPAL
+
+Quero que informações importantes possam ser alteradas facilmente em um único arquivo.
+
+Algo semelhante a:
+
+siteConfig = {
+  name: "Reforço Escolar da Professora Meire",
+  teacher: "Professora Meire",
+
+  contact: {
+    whatsapp: "",
+    phone: "",
+    email: "",
+    instagram: "",
+    address: ""
+  },
+
+  social: {},
+
+  subjects: [],
+
+  navigation: [],
+
+  testimonials: []
+}
+
+Adapte para a stack utilizada.
+
+---
+
+# 49. CRITÉRIO PRINCIPAL DE SUCESSO
+
+O site não deve parecer apenas:
+
+"uma página bonita."
+
+Ele precisa parecer um negócio de reforço escolar confiável e profissional.
+
+A landing page precisa fazer um pai pensar:
+
+"Essa professora parece realmente se preocupar com os alunos."
+
+"Consigo entender como funciona."
+
+"O ambiente parece acolhedor."
+
+"Parece um serviço sério."
+
+"Quero conversar com ela."
+
+---
+
+# 50. EXECUÇÃO
+
+Não quero apenas uma explicação sobre como desenvolver.
+
+Quero que você IMPLEMENTE o projeto.
+
+Portanto:
+
+1. Analise os arquivos existentes.
+2. Analise as imagens.
+3. Analise os vídeos.
+4. Estruture os componentes.
+5. Crie o design.
+6. Implemente todas as seções.
+7. Configure responsividade.
+8. Faça tratamento dos dados ausentes.
+9. Configure SEO.
+10. Faça revisão de acessibilidade.
+11. Teste o projeto.
+12. Corrija problemas encontrados.
+13. Atualize o README.
+14. Entregue a versão final funcionando.
+
+Ao concluir, apresente um pequeno relatório com:
+
+- arquivos criados;
+- arquivos alterados;
+- estrutura criada;
+- funcionalidades implementadas;
+- onde alterar os contatos;
+- onde adicionar novas imagens;
+- onde adicionar novos vídeos;
+- onde editar disciplinas;
+- onde cadastrar depoimentos;
+- comandos para executar o projeto.
+
+IMPORTANTE:
+
+Não fique somente descrevendo o que precisa ser feito.
+
+Analise o repositório e REALIZE as alterações necessárias.
+
+Se precisar tomar alguma decisão de design ou arquitetura para detalhes não especificados, tome a decisão mais profissional e coerente com uma landing page moderna de reforço escolar, sem interromper o desenvolvimento para perguntar detalhes pequenos.

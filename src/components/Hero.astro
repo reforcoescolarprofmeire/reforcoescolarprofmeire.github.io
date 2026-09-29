@@ -1,0 +1,324 @@
+---
+import { Image } from 'astro:assets';
+import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+import { hero } from '../data/hero';
+import { primaryContact } from '../utils/contact';
+---
+
+<section id="inicio" class="hero" aria-labelledby="inicio-titulo">
+  <div class="hero__decor" aria-hidden="true">
+    <span class="hero__shape hero__shape--a">A</span>
+    <span class="hero__shape hero__shape--b">+</span>
+    <span class="hero__shape hero__shape--c">3</span>
+  </div>
+
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1 id="inicio-titulo" class="hero__title">{hero.title}</h1>
+      <p class="hero__subtitle">{hero.subtitle}</p>
+
+      <div class="hero__actions">
+        <Button href={hero.primaryCta.href} size="lg" icon="arrow-right">{hero.primaryCta.label}</Button>
+        <Button
+          href={primaryContact.href}
+          external={primaryContact.external}
+          variant="secondary"
+          size="lg"
+          icon="message"
+          iconPosition="start"
+        >
+          {hero.secondaryCta.label}
+        </Button>
+      </div>
+
+      <ul class="hero__highlights" aria-label="Diferenciais do reforço">
+        {
+          hero.highlights.map((item) => (
+            <li>
+              <span class="hero__check">
+                <Icon name="check" size={16} strokeWidth={2.6} />
+              </span>
+              {item.text}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__frame">
+        <Image
+          src={hero.image.src}
+          alt={hero.image.alt}
+          widths={[420, 640, 900, 1122]}
+          sizes="(min-width: 1024px) 520px, (min-width: 640px) 70vw, 92vw"
+          loading="eager"
+          fetchpriority="high"
+          class="hero__image"
+        />
+      </div>
+      <div class="hero__badge" aria-hidden="true">
+        <span class="icon-badge icon-badge--yellow"><Icon name="star" size={22} /></span>
+        <span>
+          <strong>{hero.badge.title}</strong>
+          <small>{hero.badge.text}</small>
+        </span>
+      </div>
+      <svg class="hero__dots" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="hero-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="2.5" fill="currentColor"></circle>
+          </pattern>
+        </defs>
+        <rect width="120" height="120" fill="url(#hero-dots)"></rect>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(2.5rem, 1.5rem + 5vw, 6rem) clamp(4rem, 3rem + 4vw, 7rem);
+    background:
+      radial-gradient(900px 480px at 85% 10%, var(--green-50), transparent 70%),
+      radial-gradient(700px 520px at 0% 100%, var(--yellow-50), transparent 70%),
+      linear-gradient(180deg, var(--blue-50), var(--white));
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  }
+
+  .hero__title {
+    font-size: var(--fs-800);
+    font-weight: 600;
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero__subtitle {
+    max-width: 38rem;
+    font-size: var(--fs-500);
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero__highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 0.75rem 1.25rem;
+    list-style: none;
+    max-width: 36rem;
+  }
+
+  .hero__highlights li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 700;
+    font-size: 0.975rem;
+    color: var(--ink-900);
+  }
+
+  .hero__check {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--green-100);
+    color: var(--green-700);
+  }
+
+  .hero__media {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 520px);
+  }
+
+  .hero__frame {
+    position: relative;
+    z-index: 1;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) 96px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 6px solid var(--white);
+    background: var(--blue-100);
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  .hero__media::before {
+    content: '';
+    position: absolute;
+    inset: 8% -6% -5% 12%;
+    border-radius: 40px;
+    background: var(--yellow-300);
+    opacity: 0.55;
+    transform: rotate(4deg);
+  }
+
+  .hero__badge {
+    position: absolute;
+    z-index: 2;
+    left: -1rem;
+    bottom: 12%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.1rem 0.85rem 0.85rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 260px;
+  }
+
+  .hero__badge strong {
+    display: block;
+    font-size: 0.975rem;
+    line-height: 1.25;
+  }
+
+  .hero__badge small {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-500);
+  }
+
+  .hero__dots {
+    position: absolute;
+    top: -26px;
+    right: -26px;
+    color: var(--blue-600);
+    opacity: 0.18;
+  }
+
+  .hero__decor {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__shape {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .hero__shape--a {
+    top: 12%;
+    left: 3%;
+    font-size: 5rem;
+    color: var(--blue-600);
+    opacity: 0.06;
+    transform: rotate(-12deg);
+  }
+
+  .hero__shape--b {
+    bottom: 10%;
+    left: 44%;
+    font-size: 4rem;
+    color: var(--green-600);
+    opacity: 0.12;
+  }
+
+  .hero__shape--c {
+    top: 8%;
+    right: 4%;
+    font-size: 4.5rem;
+    color: var(--yellow-500);
+    opacity: 0.22;
+    transform: rotate(10deg);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .hero__media {
+      justify-self: end;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .hero__content {
+      text-align: center;
+    }
+
+    .hero__subtitle,
+    .hero__highlights {
+      margin-inline: auto;
+    }
+
+    .hero__actions {
+      justify-content: center;
+    }
+
+    .hero__highlights {
+      text-align: start;
+      width: fit-content;
+    }
+
+    .hero__shape--b {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__shape--a,
+    .hero__shape--c {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero__actions :global(.btn) {
+      width: 100%;
+    }
+
+    .hero__highlights {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__badge {
+      left: 50%;
+      bottom: -1.25rem;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 1.5rem);
+    }
+
+    .hero__frame {
+      border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 64px;
+    }
+
+    .hero__dots {
+      right: -10px;
+    }
+  }
+</style>

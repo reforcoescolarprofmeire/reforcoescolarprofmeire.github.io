@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProblemSection from '../components/ProblemSection.astro';
+import AboutTeacher from '../components/AboutTeacher.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Benefits from '../components/Benefits.astro';
+import TargetAudience from '../components/TargetAudience.astro';
+import Subjects from '../components/Subjects.astro';
+import Methodology from '../components/Methodology.astro';
+import TrustSection from '../components/TrustSection.astro';
+import Gallery from '../components/Gallery.astro';
+import VideoSection from '../components/VideoSection.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+import { navigation } from '../data/navigation';
+import { testimonials } from '../data/testimonials';
+import { videos } from '../data/videos';
+
+// Itens de menu de seções sem conteúdo são ocultados automaticamente.
+const available = {
+  testimonials: testimonials.some((t) => t.name.trim() && t.text.trim()),
+  videos: videos.length > 0,
+};
+const navItems = navigation.filter((item) => !item.requires || available[item.requires]);
+---
+
+<BaseLayout>
+  <Header items={navItems} />
+  <main id="conteudo">
+    <Hero />
+    <ProblemSection />
+    <AboutTeacher />
+    <HowItWorks />
+    <Benefits />
+    <TargetAudience />
+    <Subjects />
+    <Methodology />
+    <TrustSection />
+    <Gallery />
+    <VideoSection />
+    <Testimonials />
+    <FAQ />
+    <FinalCTA />
+    <Contact />
+  </main>
+  <Footer items={navItems} />
+  <WhatsAppButton />
+</BaseLayout>
+
+<script>
+  import '../scripts/reveal';
+</script>

@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'light';
+  size?: 'md' | 'lg' | 'sm';
+  icon?: string;
+  iconPosition?: 'start' | 'end';
+  external?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon,
+  iconPosition = 'end',
+  external = false,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  {...rest}
+>
+  {icon && iconPosition === 'start' && <Icon name={icon} size={20} />}
+  <span><slot /></span>
+  {icon && iconPosition === 'end' && <Icon name={icon} size={20} />}
+  {external && <span class="sr-only">(abre em nova aba)</span>}
+</a>

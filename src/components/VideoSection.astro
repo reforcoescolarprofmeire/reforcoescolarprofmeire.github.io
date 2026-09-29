@@ -1,0 +1,110 @@
+---
+import { getImage } from 'astro:assets';
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+import { videos, videosSection as data } from '../data/videos';
+
+const items = await Promise.all(
+  videos.map(async (video) => ({
+    ...video,
+    posterUrl: video.poster ? (await getImage({ src: video.poster, width: 960, format: 'webp' })).src : undefined,
+  })),
+);
+const hasMore = items.length > data.initialCount;
+---
+
+{
+  items.length > 0 && (
+    <Section id="videos" tone="cream">
+      <SectionHeader id="videos-titulo" eyebrow={data.eyebrow} title={data.title} />
+
+      <ul class="videos" id="lista-videos">
+        {items.map((video, i) => (
+          <li class="video card reveal" hidden={i >= data.initialCount} data-extra-video={i >= data.initialCount ? '' : undefined}>
+            <div class="video__player">
+              <video controls playsinline preload="none" poster={video.posterUrl} width="1280" height="720">
+                <source src={video.src} type={video.type ?? 'video/mp4'} />
+                Seu navegador não é compatível com vídeos. <a href={video.src}>Baixe o vídeo</a>.
+              </video>
+            </div>
+            <div class="video__body">
+              <h3>{video.title}</h3>
+              {video.description && <p>{video.description}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {hasMore && (
+        <div class="videos__more">
+          <button type="button" class="btn btn--ghost" aria-controls="lista-videos" aria-expanded="false" data-videos-more>
+            <span>Ver mais vídeos</span>
+            <Icon name="chevron-down" size={20} />
+          </button>
+        </div>
+      )}
+    </Section>
+  )
+}
+
+<script>
+  const moreButton = document.querySelector<HTMLButtonElement>('[data-videos-more]');
+  moreButton?.addEventListener('click', () => {
+    document.querySelectorAll<HTMLElement>('[data-extra-video]').forEach((el) => {
+      el.hidden = false;
+      el.classList.add('is-visible');
+    });
+    moreButton.setAttribute('aria-expanded', 'true');
+    moreButton.parentElement?.remove();
+  });
+
+  // Apenas um vídeo tocando por vez
+  const players = document.querySelectorAll<HTMLVideoElement>('.video__player video');
+  players.forEach((player) =>
+    player.addEventListener('play', () => players.forEach((other) => other !== player && other.pause())),
+  );
+</script>
+
+<style>
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .video {
+    overflow: hidden;
+  }
+
+  .video__player {
+    aspect-ratio: 16 / 9;
+    background: var(--ink-900);
+  }
+
+  .video__player video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video__body {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .video__body h3 {
+    margin-bottom: 0.25rem;
+  }
+
+  .video__body p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .videos__more {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+</style>

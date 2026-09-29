@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Mídias originais enviadas (o site usa cópias em src/assets e public/videos)
+/IMAGENS PESSOA/
+/IMAGENS REFORÇO/
+/VIDEOS/

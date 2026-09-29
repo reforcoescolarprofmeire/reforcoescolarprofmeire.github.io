@@ -1,0 +1,89 @@
+---
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+import { testimonials, testimonialsSection as data } from '../data/testimonials';
+
+// Ignora itens incompletos para nunca exibir campos vazios.
+const items = testimonials.filter((t) => t.name.trim() && t.text.trim());
+---
+
+{
+  items.length > 0 && (
+    <Section id="depoimentos" tone="blue">
+      <SectionHeader id="depoimentos-titulo" eyebrow={data.eyebrow} title={data.title} />
+
+      <ul class="testimonials">
+        {items.map((item, i) => {
+          const rating = item.rating ? Math.max(1, Math.min(5, Math.round(item.rating))) : 0;
+          return (
+            <li class="testimonial card reveal" style={`--delay:${(i % 3) * 80}ms`}>
+              <figure>
+                <Icon name="quote" size={30} class="testimonial__quote" />
+                {rating > 0 && (
+                  <p class="testimonial__rating" aria-label={`Avaliação: ${rating} de 5`}>
+                    {Array.from({ length: 5 }, (_, s) => (
+                      <Icon name={s < rating ? 'star-fill' : 'star'} size={18} />
+                    ))}
+                  </p>
+                )}
+                <blockquote>
+                  <p>{item.text}</p>
+                </blockquote>
+                <figcaption>
+                  <strong>{item.name}</strong>
+                  {item.relationship && <span>{item.relationship}</span>}
+                </figcaption>
+              </figure>
+            </li>
+          );
+        })}
+      </ul>
+    </Section>
+  )
+}
+
+<style>
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 1.25rem;
+    list-style: none;
+  }
+
+  .testimonial figure {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 1.75rem;
+  }
+
+  .testimonial :global(.testimonial__quote) {
+    color: var(--yellow-500);
+    margin-bottom: 0.75rem;
+  }
+
+  .testimonial__rating {
+    display: flex;
+    gap: 2px;
+    color: var(--yellow-500);
+    margin-bottom: 0.75rem;
+  }
+
+  .testimonial blockquote {
+    flex: 1;
+    margin: 0 0 1.25rem;
+    font-size: 1.05rem;
+    color: var(--ink-700);
+  }
+
+  .testimonial figcaption strong {
+    display: block;
+  }
+
+  .testimonial figcaption span {
+    font-size: 0.9rem;
+    color: var(--ink-500);
+  }
+</style>

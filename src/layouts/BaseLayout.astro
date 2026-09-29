@@ -1,0 +1,77 @@
+---
+import '@fontsource-variable/fraunces/wght.css';
+import '@fontsource-variable/nunito-sans/wght.css';
+import '../styles/global.css';
+import { siteConfig } from '../config/site';
+import { hasValue, instagramUrl, facebookUrl, whatsappNumber } from '../utils/contact';
+import Analytics from '../components/Analytics.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = siteConfig.seo.title, description = siteConfig.seo.description } = Astro.props;
+
+const siteUrl = hasValue(siteConfig.url) ? siteConfig.url.replace(/\/$/, '') : '';
+const canonical = siteUrl ? `${siteUrl}${Astro.url.pathname}` : '';
+const ogImage = siteUrl ? `${siteUrl}${siteConfig.seo.ogImage}` : siteConfig.seo.ogImage;
+
+const { contact } = siteConfig;
+const sameAs = [instagramUrl, facebookUrl].filter(Boolean);
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: siteConfig.name,
+  description,
+  ...(siteUrl && { url: siteUrl, image: ogImage }),
+  ...(hasValue(contact.phone) && { telephone: contact.phone }),
+  ...(!hasValue(contact.phone) && whatsappNumber && { telephone: `+${whatsappNumber}` }),
+  ...(hasValue(contact.email) && { email: contact.email }),
+  ...(hasValue(contact.address) && { address: contact.address }),
+  ...(sameAs.length && { sameAs }),
+  founder: { '@type': 'Person', name: siteConfig.teacher, jobTitle: 'Professora' },
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#215b98" />
+    <meta name="author" content={siteConfig.teacher} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={siteConfig.seo.locale} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Professora Meire acompanhando uma aluna durante os estudos" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+    <Analytics />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,127 @@
+---
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+import { howItWorks as data } from '../data/howItWorks';
+---
+
+<Section id="como-funciona" tone="white">
+  <SectionHeader id="como-funciona-titulo" eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
+
+  <ol class="steps">
+    {
+      data.steps.map((step, i) => (
+        <li class="step reveal" style={`--delay:${i * 90}ms`}>
+          <div class="step__marker" aria-hidden="true">
+            <span class="step__number">{i + 1}</span>
+          </div>
+          <div class="step__body card card--hover">
+            <span class="icon-badge">
+              <Icon name={step.icon} size={24} />
+            </span>
+            <h3>
+              <span class="sr-only">Etapa {i + 1}: </span>
+              {step.title}
+            </h3>
+            <p>{step.text}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .steps {
+    position: relative;
+    display: grid;
+    gap: 1.25rem;
+    list-style: none;
+    counter-reset: none;
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 1rem;
+  }
+
+  .step__marker {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Linha da timeline (mobile/tablet: vertical) */
+  .step:not(:last-child) .step__marker::after {
+    content: '';
+    position: absolute;
+    top: 52px;
+    bottom: -1.25rem;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--blue-100) 0 6px, transparent 6px 12px);
+  }
+
+  .step__number {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    box-shadow: 0 0 0 6px var(--blue-50);
+  }
+
+  .step__body {
+    padding: 1.5rem;
+  }
+
+  .step__body .icon-badge {
+    margin-bottom: 1rem;
+  }
+
+  .step__body h3 {
+    font-size: var(--fs-500);
+    margin-bottom: 0.4rem;
+  }
+
+  .step__body p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 1024px) {
+    .steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .step {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 1.5rem;
+    }
+
+    .step:not(:last-child) .step__marker::after {
+      top: 24px;
+      bottom: auto;
+      left: calc(50% + 34px);
+      width: calc(100% - 68px + 1.5rem);
+      height: 2px;
+      background: repeating-linear-gradient(to right, var(--blue-100) 0 6px, transparent 6px 12px);
+    }
+
+    .step__body {
+      text-align: center;
+    }
+
+    .step__body .icon-badge {
+      margin-inline: auto;
+    }
+  }
+</style>
