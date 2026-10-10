@@ -11,6 +11,7 @@ export type NavItem = {
 
 export const navigation: NavItem[] = [
   { label: 'Início', href: '#inicio', footer: true },
+  { label: 'Disciplinas', href: '#areas', footer: true },
   { label: 'A professora', href: '#sobre', footer: true },
   { label: 'Como funciona', href: '#como-funciona', footer: true },
   { label: 'Benefícios', href: '#beneficios' },

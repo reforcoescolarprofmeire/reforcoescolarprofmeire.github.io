@@ -1,5 +1,4 @@
 export const faqSection = {
-  eyebrow: 'Dúvidas',
   title: 'Dúvidas frequentes',
   intro: 'Reunimos as perguntas que os pais costumam fazer. Se a sua não estiver aqui, é só entrar em contato.',
   items: [

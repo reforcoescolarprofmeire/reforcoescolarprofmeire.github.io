@@ -1,7 +1,6 @@
 ---
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
-import Icon from './ui/Icon.astro';
 import { testimonials, testimonialsSection as data } from '../data/testimonials';
 
 // Ignora itens incompletos para nunca exibir campos vazios.
@@ -10,29 +9,22 @@ const items = testimonials.filter((t) => t.name.trim() && t.text.trim());
 
 {
   items.length > 0 && (
-    <Section id="depoimentos" tone="blue">
-      <SectionHeader id="depoimentos-titulo" eyebrow={data.eyebrow} title={data.title} />
+    <Section id="depoimentos">
+      <SectionHeader id="depoimentos-titulo" title={data.title} />
 
-      <ul class="testimonials">
-        {items.map((item, i) => {
+      <ul class="bilhetes">
+        {items.map((item) => {
           const rating = item.rating ? Math.max(1, Math.min(5, Math.round(item.rating))) : 0;
           return (
-            <li class="testimonial card reveal" style={`--delay:${(i % 3) * 80}ms`}>
+            <li class="bilhete">
               <figure>
-                <Icon name="quote" size={30} class="testimonial__quote" />
-                {rating > 0 && (
-                  <p class="testimonial__rating" aria-label={`Avaliação: ${rating} de 5`}>
-                    {Array.from({ length: 5 }, (_, s) => (
-                      <Icon name={s < rating ? 'star-fill' : 'star'} size={18} />
-                    ))}
-                  </p>
-                )}
                 <blockquote>
                   <p>{item.text}</p>
                 </blockquote>
                 <figcaption>
                   <strong>{item.name}</strong>
                   {item.relationship && <span>{item.relationship}</span>}
+                  {rating > 0 && <span class="bilhete__nota">Avaliação: {rating} de 5</span>}
                 </figcaption>
               </figure>
             </li>
@@ -44,46 +36,44 @@ const items = testimonials.filter((t) => t.name.trim() && t.text.trim());
 }
 
 <style>
-  .testimonials {
+  /* Cada depoimento é um bilhete dos pais, preso à folha */
+  .bilhetes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 1.5rem;
     list-style: none;
   }
 
-  .testimonial figure {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  .bilhete figure {
     margin: 0;
-    padding: 1.75rem;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--pauta);
+    border-left: 3px solid var(--caneta);
+    background: var(--papel);
   }
 
-  .testimonial :global(.testimonial__quote) {
-    color: var(--yellow-500);
-    margin-bottom: 0.75rem;
+  .bilhete:nth-child(odd) figure {
+    transform: rotate(-0.6deg);
   }
 
-  .testimonial__rating {
-    display: flex;
-    gap: 2px;
-    color: var(--yellow-500);
-    margin-bottom: 0.75rem;
+  .bilhete:nth-child(even) figure {
+    transform: rotate(0.5deg);
   }
 
-  .testimonial blockquote {
-    flex: 1;
-    margin: 0 0 1.25rem;
-    font-size: 1.05rem;
-    color: var(--ink-700);
+  .bilhete blockquote {
+    margin: 0 0 1rem;
   }
 
-  .testimonial figcaption strong {
-    display: block;
+  .bilhete blockquote p {
+    margin: 0;
   }
 
-  .testimonial figcaption span {
-    font-size: 0.9rem;
-    color: var(--ink-500);
+  .bilhete figcaption {
+    display: grid;
+    font-size: 0.95rem;
+  }
+
+  .bilhete figcaption span {
+    color: var(--grafite-suave);
   }
 </style>

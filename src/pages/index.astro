@@ -35,12 +35,12 @@ const navItems = navigation.filter((item) => !item.requires || available[item.re
   <Header items={navItems} />
   <main id="conteudo">
     <Hero />
+    <Subjects />
     <ProblemSection />
     <AboutTeacher />
     <HowItWorks />
     <Benefits />
     <TargetAudience />
-    <Subjects />
     <Methodology />
     <TrustSection />
     <Gallery />
@@ -53,7 +53,3 @@ const navItems = navigation.filter((item) => !item.requires || available[item.re
   <Footer items={navItems} />
   <WhatsAppButton />
 </BaseLayout>
-
-<script>
-  import '../scripts/reveal';
-</script>

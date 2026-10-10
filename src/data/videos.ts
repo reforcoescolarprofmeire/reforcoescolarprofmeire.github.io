@@ -19,7 +19,6 @@ export type VideoItem = {
 };
 
 export const videosSection = {
-  eyebrow: 'Vídeos',
   title: 'Veja um pouco do nosso trabalho',
   /** Quantidade exibida antes do botão "Ver mais vídeos". */
   initialCount: 2,

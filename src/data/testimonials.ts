@@ -19,7 +19,6 @@ export type Testimonial = {
 };
 
 export const testimonialsSection = {
-  eyebrow: 'Depoimentos',
   title: 'O que as famílias dizem',
 };
 

@@ -21,7 +21,10 @@ export function whatsappLink(message: string = siteConfig.whatsappMessage) {
   return `https://wa.me/${whatsappNumber}${text}`;
 }
 
-/** Destino dos botões "Falar com a Professora Meire":
+/** Texto dos botões de contato: diz exatamente o que acontece ao clicar. */
+export const primaryContactLabel = hasWhatsapp ? 'Chamar no WhatsApp' : 'Falar com a professora';
+
+/** Destino dos botões de contato:
  *  WhatsApp quando cadastrado; caso contrário, a seção de contato. */
 export const primaryContact = hasWhatsapp
   ? { href: whatsappLink(), external: true }

@@ -14,8 +14,17 @@ O objetivo é transmitir confiança e explicar, de forma rápida:
 - **[Astro](https://astro.build/)**: gera HTML estático, rápido e bom para SEO, com componentes organizados.
 - **Otimização de imagens do Astro:** gera WebP em vários tamanhos, com lazy loading.
 - **CSS puro:** variáveis de design em `src/styles/global.css` e estilos locais em cada componente.
-- **TypeScript**, apenas para os poucos scripts do navegador: menu, galeria, formulário e animações.
-- **Fontes auto-hospedadas** via Fontsource: Fraunces (títulos) e Nunito Sans (texto).
+- **TypeScript**, apenas para os poucos scripts do navegador: menu, galeria e formulário. O seletor de etapa do topo funciona só com CSS.
+- **Fontes auto-hospedadas** via Fontsource: Atkinson Hyperlegible Next (todo o texto) e Kalam (só nas anotações da professora).
+
+## Identidade visual: "a margem do caderno"
+
+A página imita uma folha corrigida por uma boa professora: papel limpo, conteúdo em tinta azul e anotações da professora (círculos, riscos, setas, marca-texto) como único elemento expressivo.
+
+- **Cores** (`src/styles/global.css`): `--papel`, `--grafite`, `--caneta`, `--pauta`, `--marca-texto`, `--correcao`. O modo escuro ("lousa") segue a preferência do sistema.
+- **Margem:** no computador, a coluna da direita guarda as anotações; no celular, elas aparecem logo abaixo do trecho. Use `src/components/ui/Anotacao.astro` dentro de um elemento `.com-nota`.
+- **Marca-texto:** `src/components/ui/Grifado.astro` destaca um trecho de um texto.
+- **Exercícios do topo:** `src/data/hero.ts` (um por etapa). A correção toca uma vez ao carregar e de novo ao trocar de etapa; com "reduzir movimento" ligado, aparece pronta.
 
 O site não usa frameworks de JavaScript nem bibliotecas de UI.
 
@@ -47,7 +56,6 @@ REFORÇO/
     ├── config/site.ts     ← ⭐ CONFIGURAÇÃO PRINCIPAL (contatos, redes, domínio, integrações)
     ├── data/              ← textos e listas de cada seção
     ├── assets/images/     ← imagens do site (otimizadas automaticamente no build)
-    │   ├── hero/          ← foto da primeira dobra
     │   ├── professora/    ← retrato e fotos da professora
     │   ├── galeria/       ← fotos da galeria
     │   └── videos/        ← capas dos vídeos
@@ -55,7 +63,6 @@ REFORÇO/
     │   └── ui/            ← peças reutilizáveis (Button, Section, SectionHeader, Icon)
     ├── layouts/BaseLayout.astro  ← <head>, SEO, Open Graph, dados estruturados
     ├── pages/             ← index.astro (página), robots.txt e sitemap.xml
-    ├── scripts/           ← animação de entrada ao rolar
     ├── styles/global.css  ← cores, tipografia, botões e utilitários
     └── utils/contact.ts   ← links de WhatsApp, telefone, Instagram etc.
 ```
@@ -75,7 +82,8 @@ REFORÇO/
 | Textos sobre a professora, formação e cursos | `src/data/teacher.ts` |
 | Dificuldades, etapas, benefícios, metodologia | `src/data/problems.ts`, `howItWorks.ts`, `benefits.ts`, `methodology.ts` |
 | Público atendido e séries | `src/data/audience.ts` (campo `grades`) |
-| **Disciplinas / áreas** | `src/data/subjects.ts` |
+| **Disciplinas por etapa** | `src/data/subjects.ts` → `stages` (enquanto vazio, aparece a lista geral `items`) |
+| Exercícios corrigidos do topo | `src/data/hero.ts` → `exercises` |
 | **Depoimentos** | `src/data/testimonials.ts` |
 | Perguntas frequentes | `src/data/faq.ts` |
 | CTA final e textos do contato | `src/data/cta.ts` |
@@ -110,7 +118,7 @@ Campos deixados vazios (`''`) **não aparecem** no site: não surgem "undefined"
 
 ### Foto do topo e retrato da professora
 
-Troque os arquivos em `src/assets/images/hero/` e `src/assets/images/professora/`. Em seguida, ajuste os `import` em `src/data/hero.ts` e `src/data/teacher.ts`.
+Troque os arquivos em `src/assets/images/professora/` e ajuste os `import` em `src/data/teacher.ts`.
 
 O Astro gera automaticamente versões leves (WebP) e em vários tamanhos. Envie a imagem na melhor qualidade disponível.
 

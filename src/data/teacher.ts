@@ -10,16 +10,15 @@ import real5 from '../assets/images/professora/foto-real-5.png';
  */
 export const teacher = {
   name: 'Professora Meire',
-  eyebrow: 'Sobre a professora',
   title: 'Conheça a Professora Meire',
   paragraphs: [
     'A Professora Meire acredita que cada aluno possui seu próprio ritmo de aprendizagem. Por isso, o acompanhamento busca compreender as dificuldades individuais e criar um ambiente onde estudar seja mais leve, organizado e produtivo.',
     'Com paciência e atenção, ela observa onde o aluno está encontrando obstáculos, retoma o que ficou para trás e ajuda a construir segurança para seguir em frente, sempre mantendo uma conversa próxima com a família.',
   ],
   values: [
-    { icon: 'heart', title: 'Acolhimento', text: 'Um espaço onde o aluno se sente à vontade para perguntar.' },
-    { icon: 'eye', title: 'Olhar atento', text: 'Observação cuidadosa das dificuldades e dos avanços.' },
-    { icon: 'users', title: 'Parceria com a família', text: 'Pais e responsáveis sabem como o estudante está evoluindo.' },
+    { title: 'Acolhimento', text: 'Um espaço onde o aluno se sente à vontade para perguntar.' },
+    { title: 'Olhar atento', text: 'Observação cuidadosa das dificuldades e dos avanços.' },
+    { title: 'Parceria com a família', text: 'Pais e responsáveis sabem como o estudante está evoluindo.' },
   ],
 
   /** Preencha quando houver informações confirmadas. Ex.: ['Licenciatura em Pedagogia'] */

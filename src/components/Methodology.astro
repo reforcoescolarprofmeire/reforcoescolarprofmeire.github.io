@@ -1,124 +1,60 @@
 ---
 import { Image } from 'astro:assets';
 import Section from './ui/Section.astro';
-import Icon from './ui/Icon.astro';
 import { methodologySection as data } from '../data/methodology';
 import methodImage from '../assets/images/galeria/leitura-acompanhada.jpg';
 ---
 
-<Section id="metodologia" tone="white">
+<Section id="metodologia">
   <div class="method">
-    <div class="method__content">
-      <p class="eyebrow reveal">{data.eyebrow}</p>
-      <h2 id="metodologia-titulo" class="section-title reveal">{data.title}</h2>
-      {data.paragraphs.map((text) => <p class="method__text reveal">{text}</p>)}
+    <div>
+      <h2 id="metodologia-titulo" class="section-title">{data.title}</h2>
+      {data.paragraphs.map((text) => <p>{text}</p>)}
 
-      <ul class="method__list">
-        {
-          data.items.map((item, i) => (
-            <li class="reveal" style={`--delay:${(i % 4) * 60}ms`}>
-              <Icon name={item.icon} size={20} />
-              {item.title}
-            </li>
-          ))
-        }
+      <ul class="lista-traco method__list">
+        {data.items.map((item) => <li>{item.title}</li>)}
       </ul>
     </div>
 
-    <div class="method__media reveal">
+    <figure class="method__media">
       <Image
         src={methodImage}
         alt="Professora acompanhando a leitura de um aluno, com livros e lápis sobre a mesa"
-        widths={[480, 720, 960, 1280]}
-        sizes="(min-width: 1024px) 560px, 92vw"
+        widths={[480, 720, 960]}
+        sizes="(min-width: 1100px) 360px, (min-width: 640px) 60vw, 92vw"
         class="method__img"
       />
-      <p class="method__note">
-        <Icon name="sparkles" size={18} /> Sem pressão excessiva, no ritmo de cada aluno.
-      </p>
-    </div>
+    </figure>
   </div>
 </Section>
 
 <style>
   .method {
     display: grid;
-    gap: clamp(2.5rem, 2rem + 3vw, 4.5rem);
-    align-items: center;
-  }
-
-  .method__text {
-    font-size: var(--fs-500);
-    color: var(--color-muted);
+    gap: 2rem;
+    align-items: start;
   }
 
   .method__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
-    gap: 0.75rem;
-    margin-top: 1.75rem;
-    list-style: none;
-  }
-
-  .method__list li {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.8rem 1rem;
-    border-radius: var(--radius-sm);
-    background: var(--blue-50);
-    font-weight: 700;
-    font-size: 0.975rem;
-    line-height: 1.3;
-  }
-
-  .method__list :global(.icon) {
-    flex-shrink: 0;
-    color: var(--blue-700);
+    margin-top: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
   }
 
   .method__media {
-    position: relative;
+    margin: 0;
+    max-width: 480px;
   }
 
   .method__img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
   }
 
-  .method__note {
-    position: absolute;
-    left: 1.25rem;
-    bottom: -1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0;
-    padding: 0.75rem 1.1rem;
-    max-width: calc(100% - 2.5rem);
-    border-radius: 999px;
-    background: var(--white);
-    box-shadow: var(--shadow);
-    font-weight: 800;
-    font-size: 0.925rem;
-    color: var(--green-700);
-  }
-
-  @media (min-width: 1024px) {
+  @media (min-width: 1100px) {
     .method {
-      grid-template-columns: 1.05fr 0.95fr;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .method__note {
-      position: static;
-      margin-top: 1rem;
-      border-radius: var(--radius);
-      max-width: none;
+      grid-template-columns: 1fr 360px;
+      gap: 3rem;
     }
   }
 </style>

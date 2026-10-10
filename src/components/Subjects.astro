@@ -1,58 +1,86 @@
 ---
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
-import Icon from './ui/Icon.astro';
 import { subjectsSection as data } from '../data/subjects';
+import { audienceSection } from '../data/audience';
+import { hasValue } from '../utils/contact';
+
+// Organização por etapa quando houver dados; senão, a lista geral.
+const stages = data.stages.filter((stage) => stage.subjects.length > 0);
+const show = stages.length > 0 || data.items.length > 0;
 ---
 
 {
-  data.items.length > 0 && (
-    <Section id="areas" tone="green">
+  show && (
+    <Section id="areas">
       <SectionHeader id="areas-titulo" title={data.title} intro={data.intro} />
 
-      <ul class="subjects">
-        {data.items.map((item, i) => (
-          <li class="subject card card--hover reveal" style={`--delay:${i * 50}ms`}>
-            <span class="icon-badge icon-badge--green">
-              <Icon name={item.icon} size={22} />
-            </span>
-            <span class="subject__title">{item.title}</span>
-          </li>
-        ))}
-      </ul>
+      {stages.length > 0 ? (
+        <div class="etapas-materias">
+          {stages.map((stage) => (
+            <section aria-labelledby={`etapa-${stage.name}`.replace(/\s+/g, '-')}>
+              <h3 id={`etapa-${stage.name}`.replace(/\s+/g, '-')}>{stage.name}</h3>
+              <ul class="materias">
+                {stage.subjects.map((subject) => (
+                  <li>{subject}</li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <Fragment>
+          {hasValue(audienceSection.grades) && <p class="materias__etapas">{audienceSection.grades}</p>}
+          <ul class="materias materias--colunas">
+            {data.items.map((item) => (
+              <li>{item.title}</li>
+            ))}
+          </ul>
+        </Fragment>
+      )}
     </Section>
   )
 }
 
 <style>
-  .subjects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+  .etapas-materias {
+    display: grid;
+    gap: 2rem 2.5rem;
+  }
+
+  .etapas-materias h3 {
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--caneta);
+    color: var(--caneta);
+  }
+
+  .materias {
     list-style: none;
-    max-width: 980px;
-    margin-inline: auto;
   }
 
-  .subject {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    flex: 1 1 260px;
-    max-width: 310px;
-    padding: 1rem 1.25rem 1rem 1rem;
-  }
-
-  .subject__title {
-    font-weight: 800;
-    font-size: 1.02rem;
+  .materias li {
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--pauta);
+    font-size: var(--t-1);
     line-height: 1.3;
   }
 
-  @media (max-width: 600px) {
-    .subject {
-      max-width: none;
+  .materias--colunas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    column-gap: 2.5rem;
+  }
+
+  .materias__etapas {
+    margin: 0 0 1rem;
+    font-weight: 700;
+    color: var(--caneta);
+  }
+
+  @media (min-width: 720px) {
+    .etapas-materias {
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
     }
   }
 </style>

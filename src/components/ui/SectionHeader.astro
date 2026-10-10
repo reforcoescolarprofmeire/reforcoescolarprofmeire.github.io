@@ -1,17 +1,14 @@
 ---
 interface Props {
   id: string;
-  eyebrow?: string;
   title: string;
   intro?: string;
-  align?: 'center' | 'start';
 }
 
-const { id, eyebrow, title, intro, align = 'center' } = Astro.props;
+const { id, title, intro } = Astro.props;
 ---
 
-<header class:list={['section-header', `section-header--${align}`, 'reveal']}>
-  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+<header class="section-header">
   <h2 id={id} class="section-title">{title}</h2>
   {intro && <p class="section-intro">{intro}</p>}
 </header>

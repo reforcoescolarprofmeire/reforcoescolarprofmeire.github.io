@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <Logo variant="light" />
+      <Logo />
       <p>{siteConfig.tagline}</p>
     </div>
 
@@ -63,7 +63,7 @@ const year = new Date().getFullYear();
       © <span data-year>{year}</span>{' '}{siteConfig.name}. Todos os direitos reservados.
     </p>
     <a href="#inicio" class="footer__top">
-      Voltar ao topo <Icon name="arrow-up" size={16} />
+      Voltar ao topo
     </a>
   </div>
 </footer>
@@ -74,36 +74,31 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    padding-top: clamp(3rem, 2.5rem + 3vw, 5rem);
-    background: var(--ink-900);
-    color: rgb(255 255 255 / 0.78);
+    border-top: 1px solid var(--pauta);
+    padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
   }
 
   .footer__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-    gap: 2.5rem;
-    padding-bottom: 3rem;
+    gap: 2rem;
+    padding-bottom: 2.5rem;
   }
 
   .footer__brand p {
     max-width: 22rem;
     margin: 1rem 0 0;
+    color: var(--grafite-suave);
   }
 
   .footer__title {
-    margin-bottom: 1rem;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--yellow-300);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
   }
 
   .footer__links {
     display: grid;
-    gap: 0.35rem;
+    gap: 0.2rem;
     list-style: none;
   }
 
@@ -112,14 +107,7 @@ const year = new Date().getFullYear();
     align-items: center;
     gap: 0.5rem;
     padding-block: 0.3rem;
-    color: rgb(255 255 255 / 0.85);
-    text-decoration: none;
     overflow-wrap: anywhere;
-  }
-
-  .footer__links a:hover {
-    color: var(--white);
-    text-decoration: underline;
   }
 
   .footer__bottom {
@@ -128,9 +116,10 @@ const year = new Date().getFullYear();
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-block: 1.5rem;
-    border-top: 1px solid rgb(255 255 255 / 0.1);
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--pauta);
     font-size: 0.9rem;
+    color: var(--grafite-suave);
   }
 
   .footer__bottom p {
@@ -138,15 +127,6 @@ const year = new Date().getFullYear();
   }
 
   .footer__top {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: rgb(255 255 255 / 0.85);
     font-weight: 700;
-    text-decoration: none;
-  }
-
-  .footer__top:hover {
-    color: var(--yellow-300);
   }
 </style>

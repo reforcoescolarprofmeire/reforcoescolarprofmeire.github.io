@@ -1,0 +1,25 @@
+---
+/**
+ * Mostra `texto` com um trecho passado no marca-texto.
+ * Se o trecho não estiver no texto, o texto aparece sem destaque.
+ */
+interface Props {
+  texto: string;
+  trecho?: string;
+}
+
+const { texto, trecho = '' } = Astro.props;
+const i = trecho ? texto.indexOf(trecho) : -1;
+---
+
+{
+  i < 0 ? (
+    texto
+  ) : (
+    <Fragment>
+      {texto.slice(0, i)}
+      <mark class="grifo">{trecho}</mark>
+      {texto.slice(i + trecho.length)}
+    </Fragment>
+  )
+}

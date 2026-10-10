@@ -1,34 +1,24 @@
 ---
 import Section from './ui/Section.astro';
-import Icon from './ui/Icon.astro';
 import { audienceSection as data } from '../data/audience';
 import { hasValue } from '../utils/contact';
 ---
 
-<Section id="para-quem" tone="white">
+<Section id="para-quem">
   <div class="audience">
-    <div class="audience__intro">
-      <p class="eyebrow reveal">{data.eyebrow}</p>
-      <h2 id="para-quem-titulo" class="section-title reveal">{data.title}</h2>
-      <p class="section-intro reveal">{data.intro}</p>
+    <div>
+      <h2 id="para-quem-titulo" class="section-title">{data.title}</h2>
+      <p class="section-intro">{data.intro}</p>
 
-      <ul class="audience__groups reveal" aria-label="Faixas atendidas">
-        {data.groups.map((group) => <li>{group}</li>)}
-      </ul>
-      {hasValue(data.grades) && <p class="audience__grades reveal">{data.grades}</p>}
+      <p class="audience__groups">
+        <span class="sr-only">Faixas atendidas: </span>
+        {data.groups.join(' · ')}
+      </p>
+      {hasValue(data.grades) && <p class="audience__grades">{data.grades}</p>}
     </div>
 
-    <ul class="audience__list card">
-      {
-        data.items.map((item, i) => (
-          <li class="reveal" style={`--delay:${i * 70}ms`}>
-            <span class="audience__check">
-              <Icon name="check" size={16} strokeWidth={2.6} />
-            </span>
-            {item}
-          </li>
-        ))
-      }
+    <ul class="lista-traco audience__list">
+      {data.items.map((item) => <li>{item}</li>)}
     </ul>
   </div>
 </Section>
@@ -36,69 +26,25 @@ import { hasValue } from '../utils/contact';
 <style>
   .audience {
     display: grid;
-    gap: clamp(2rem, 1.5rem + 3vw, 4rem);
-    align-items: center;
+    gap: 2rem;
   }
 
   .audience__groups {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1.75rem;
-    list-style: none;
-  }
-
-  .audience__groups li {
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
-    background: var(--blue-50);
-    border: 1px solid var(--blue-100);
-    color: var(--blue-800);
-    font-weight: 800;
-    font-size: 0.95rem;
+    margin: 1.5rem 0 0;
+    font-weight: 700;
+    color: var(--caneta);
   }
 
   .audience__grades {
-    margin-top: 1rem;
+    margin: 0.5rem 0 0;
     font-weight: 700;
-    color: var(--green-700);
   }
 
-  .audience__list {
-    display: grid;
-    gap: 0.25rem;
-    padding: clamp(1.25rem, 1rem + 1.5vw, 2rem);
-    list-style: none;
-    box-shadow: var(--shadow);
-  }
-
-  .audience__list li {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding: 0.85rem 0.25rem;
-    font-weight: 700;
-    border-bottom: 1px dashed var(--line);
-  }
-
-  .audience__list li:last-child {
-    border-bottom: 0;
-  }
-
-  .audience__check {
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--green-100);
-    color: var(--green-700);
-  }
-
-  @media (min-width: 1024px) {
+  @media (min-width: 1100px) {
     .audience {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: end;
     }
   }
 </style>
