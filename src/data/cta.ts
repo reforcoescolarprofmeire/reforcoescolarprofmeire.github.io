@@ -6,6 +6,7 @@ export const finalCta = {
 };
 
 export const contactSection = {
+  eyebrow: 'Contato',
   title: 'Vamos conversar?',
   intro: 'Conte um pouco sobre o seu filho e as dificuldades que ele tem enfrentado. Vai ser um prazer conhecer vocês.',
   emptyTitle: 'Canais de atendimento em breve',

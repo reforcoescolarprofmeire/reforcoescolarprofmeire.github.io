@@ -21,7 +21,7 @@ const difficulties = [
 ---
 
 <form
-  class="form"
+  class="form card reveal"
   novalidate
   data-contact-form
   data-mode={mode}
@@ -88,6 +88,7 @@ const difficulties = [
   {
     mode === 'demo' && (
       <p class="form__notice">
+        <Icon name="info" size={18} />
         Formulário demonstrativo. O canal de atendimento será disponibilizado em breve.
       </p>
     )
@@ -95,6 +96,7 @@ const difficulties = [
 
   <button type="submit" class="btn btn--primary btn--lg form__submit">
     <span>{mode === 'whatsapp' ? 'Enviar pelo WhatsApp' : 'Enviar meus dados'}</span>
+    <Icon name={mode === 'whatsapp' ? 'whatsapp' : 'send'} size={20} />
   </button>
 
   <div class="form__status" role="status" aria-live="polite" data-form-status hidden></div>
@@ -212,17 +214,19 @@ const difficulties = [
 
 <style>
   .form {
-    max-width: 40rem;
+    padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
   }
 
   .form__title {
-    font-size: var(--t-2);
+    font-size: var(--fs-600);
     margin-bottom: 0.25rem;
   }
 
   .form__desc {
-    font-size: var(--t--1);
-    color: var(--grafite-suave);
+    font-size: 0.9rem;
+    color: var(--ink-500);
     margin-bottom: 1.5rem;
   }
 
@@ -234,29 +238,32 @@ const difficulties = [
   .field {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
     min-width: 0;
   }
 
   .field label {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.95rem;
   }
 
   .field label span {
-    color: var(--correcao);
+    color: var(--coral-500);
   }
 
   .field input,
   .field select,
   .field textarea {
     width: 100%;
-    min-height: 48px;
-    padding: 0.7rem 0.85rem;
-    border: 1px solid var(--pauta-forte);
-    border-radius: var(--raio-campo);
-    background: var(--papel);
+    min-height: 50px;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #cfd8e3;
+    border-radius: 12px;
+    background: var(--white);
     font-size: 1rem;
+    transition:
+      border-color 0.2s var(--ease),
+      box-shadow 0.2s var(--ease);
   }
 
   .field textarea {
@@ -266,28 +273,28 @@ const difficulties = [
 
   .field input::placeholder,
   .field textarea::placeholder {
-    color: var(--grafite-suave);
+    color: #8592a5;
   }
 
-  .field input:focus-visible,
-  .field select:focus-visible,
-  .field textarea:focus-visible {
-    outline: 3px solid var(--caneta);
-    outline-offset: 1px;
-    border-color: var(--caneta);
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--blue-600);
+    box-shadow: 0 0 0 4px rgb(42 109 179 / 0.15);
   }
 
   .field [aria-invalid='true'] {
-    border-color: var(--correcao);
-    border-width: 2px;
+    border-color: #c2412d;
+    box-shadow: 0 0 0 4px rgb(194 65 45 / 0.1);
   }
 
   .field__error {
     margin: 0;
-    font-family: var(--fonte);
-    font-size: 0.9rem;
+    min-height: 0;
+    font-size: 0.85rem;
     font-weight: 700;
-    color: var(--correcao);
+    color: #b2381f;
   }
 
   .field__error:empty {
@@ -306,21 +313,33 @@ const difficulties = [
 
   .select :global(.icon) {
     position: absolute;
-    right: 0.85rem;
+    right: 1rem;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    color: var(--grafite-suave);
+    color: var(--ink-500);
   }
 
   .form__notice {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
     margin: 1.5rem 0 0;
-    padding: 0.75rem 0 0.75rem 1rem;
-    border-left: 3px solid var(--marca-texto);
-    font-size: 0.95rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    background: var(--yellow-50);
+    border: 1px solid var(--yellow-100);
+    font-size: 0.9rem;
+    color: #6b4c00;
+  }
+
+  .form__notice :global(.icon) {
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .form__submit {
+    width: 100%;
     margin-top: 1.5rem;
   }
 
@@ -331,15 +350,28 @@ const difficulties = [
 
   .form__status {
     margin-top: 1rem;
-    padding: 0.75rem 0 0.75rem 1rem;
-    border-left: 3px solid var(--caneta);
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
     font-weight: 700;
     font-size: 0.95rem;
   }
 
+  .form__status--success {
+    background: var(--green-50);
+    color: var(--green-700);
+    border: 1px solid var(--green-100);
+  }
+
+  .form__status--info {
+    background: var(--blue-50);
+    color: var(--blue-900);
+    border: 1px solid var(--blue-100);
+  }
+
   .form__status--error {
-    border-left-color: var(--correcao);
-    color: var(--correcao);
+    background: #fdf0ed;
+    color: #a3341c;
+    border: 1px solid #f6d3ca;
   }
 
   @media (min-width: 640px) {
@@ -349,12 +381,6 @@ const difficulties = [
 
     .field--full {
       grid-column: 1 / -1;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .form__submit {
-      width: 100%;
     }
   }
 </style>

@@ -23,6 +23,7 @@ const entries: GalleryEntry[] = [
 export const galleryHasIllustrativeImages = true;
 
 export const gallerySection = {
+  eyebrow: 'Galeria',
   title: 'Um pouco do nosso dia a dia',
   intro: 'Momentos de estudo, atenção e descoberta. Clique em uma foto para ampliar.',
 };

@@ -16,12 +16,12 @@ const items = await Promise.all(
 
 {
   items.length > 0 && (
-    <Section id="galeria">
-      <SectionHeader id="galeria-titulo" title={data.title} intro={data.intro} />
+    <Section id="galeria" tone="white">
+      <SectionHeader id="galeria-titulo" eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
 
       <ul class="gallery" data-gallery>
         {items.map((item, i) => (
-          <li class:list={['gallery__item', { 'gallery__item--wide': item.wide }]}>
+          <li class:list={['gallery__item reveal', { 'gallery__item--wide': item.wide }]} style={`--delay:${(i % 3) * 80}ms`}>
             <button
               type="button"
               class="gallery__button"
@@ -39,6 +39,9 @@ const items = await Promise.all(
                 class="gallery__img"
               />
               {item.caption && <span class="gallery__caption">{item.caption}</span>}
+              <span class="gallery__zoom" aria-hidden="true">
+                <Icon name="zoom-in" size={20} />
+              </span>
             </button>
           </li>
         ))}
@@ -46,7 +49,7 @@ const items = await Promise.all(
 
       {galleryHasIllustrativeImages && (
         <p class="gallery__note">
-          Algumas imagens são ilustrativas e representam o dia a dia do reforço.
+          <Icon name="info" size={16} /> Algumas imagens são ilustrativas e representam o dia a dia do reforço.
         </p>
       )}
 
@@ -122,45 +125,97 @@ const items = await Promise.all(
 <style>
   .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     grid-auto-flow: dense;
-    gap: 1.5rem 1rem;
+    gap: 1rem;
     list-style: none;
   }
 
   .gallery__button {
+    position: relative;
     display: block;
     width: 100%;
+    height: 100%;
     padding: 0;
     border: 0;
-    background: none;
-    text-align: left;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--blue-100);
+    aspect-ratio: 4 / 3;
     cursor: zoom-in;
   }
 
   .gallery__img {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 100%;
     object-fit: cover;
-    background: var(--pauta);
+    transition: transform 0.6s var(--ease);
+  }
+
+  .gallery__button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgb(22 35 58 / 0.65));
+    pointer-events: none;
   }
 
   .gallery__caption {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    color: var(--grafite-suave);
+    position: absolute;
+    z-index: 1;
+    left: 1rem;
+    right: 3.5rem;
+    bottom: 0.9rem;
+    color: var(--white);
+    font-weight: 800;
+    font-size: 0.975rem;
+    text-align: left;
+    text-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
   }
 
-  .gallery__button:hover .gallery__caption {
-    color: var(--caneta);
-    text-decoration: underline;
+  .gallery__zoom {
+    position: absolute;
+    z-index: 1;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--blue-800);
+    transform: scale(0.85);
+    opacity: 0.85;
+    transition:
+      transform 0.3s var(--ease),
+      opacity 0.3s var(--ease);
+  }
+
+  .gallery__button:hover .gallery__img,
+  .gallery__button:focus-visible .gallery__img {
+    transform: scale(1.05);
+  }
+
+  .gallery__button:hover .gallery__zoom,
+  .gallery__button:focus-visible .gallery__zoom {
+    transform: scale(1);
+    opacity: 1;
   }
 
   .gallery__note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
     margin: 1.5rem 0 0;
-    font-size: var(--t--1);
-    color: var(--grafite-suave);
+    font-size: 0.85rem;
+    color: var(--ink-500);
+    text-align: center;
+  }
+
+  .gallery__note :global(.icon) {
+    flex-shrink: 0;
   }
 
   @media (min-width: 1024px) {
@@ -172,12 +227,12 @@ const items = await Promise.all(
       grid-column: span 2;
     }
 
-    .gallery__item--wide .gallery__img {
-      aspect-ratio: 16 / 9;
+    .gallery__item--wide .gallery__button {
+      aspect-ratio: auto;
     }
 
-    .gallery__item:not(.gallery__item--wide) .gallery__img {
-      aspect-ratio: 4 / 4.5;
+    .gallery__item:not(.gallery__item--wide) .gallery__button {
+      aspect-ratio: 4 / 4.2;
     }
   }
 
@@ -191,11 +246,15 @@ const items = await Promise.all(
     padding: 0;
     border: 0;
     background: transparent;
-    color: #fafbfd;
+    color: var(--white);
   }
 
   .lightbox::backdrop {
-    background: rgb(20 26 36 / 0.94);
+    background: rgb(14 22 38 / 0.9);
+  }
+
+  .lightbox[open] {
+    animation: fade-in 0.25s var(--ease);
   }
 
   .lightbox__inner {
@@ -221,11 +280,15 @@ const items = await Promise.all(
     max-height: calc(100dvh - 10rem);
     width: auto;
     height: auto;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgb(0 0 0 / 0.4);
+    background: var(--ink-700);
   }
 
   .lightbox__caption {
+    font-weight: 700;
     text-align: center;
-    color: #e8ecf3;
+    color: rgb(255 255 255 / 0.9);
   }
 
   .lightbox__btn {
@@ -234,18 +297,15 @@ const items = await Promise.all(
     place-items: center;
     width: 48px;
     height: 48px;
-    border: 1px solid rgb(232 236 243 / 0.5);
-    border-radius: var(--raio-botao);
-    background: transparent;
-    color: #fafbfd;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.14);
+    color: var(--white);
+    transition: background-color 0.2s var(--ease);
   }
 
   .lightbox__btn:hover {
-    background: rgb(232 236 243 / 0.15);
-  }
-
-  .lightbox__btn:focus-visible {
-    outline-color: #fafbfd;
+    background: rgb(255 255 255 / 0.28);
   }
 
   .lightbox__close {
@@ -281,6 +341,12 @@ const items = await Promise.all(
 
     .lightbox__img {
       max-height: calc(100dvh - 12rem);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
     }
   }
 </style>

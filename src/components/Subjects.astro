@@ -1,86 +1,140 @@
 ---
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
 import { subjectsSection as data } from '../data/subjects';
 import { audienceSection } from '../data/audience';
 import { hasValue } from '../utils/contact';
 
 // Organização por etapa quando houver dados; senão, a lista geral.
 const stages = data.stages.filter((stage) => stage.subjects.length > 0);
-const show = stages.length > 0 || data.items.length > 0;
 ---
 
 {
-  show && (
-    <Section id="areas">
+  (stages.length > 0 || data.items.length > 0) && (
+    <Section id="areas" tone="green">
       <SectionHeader id="areas-titulo" title={data.title} intro={data.intro} />
 
+      {hasValue(audienceSection.grades) && (
+        <p class="subjects__grades reveal">
+          <Icon name="graduation-cap" size={20} /> {audienceSection.grades}
+        </p>
+      )}
+
       {stages.length > 0 ? (
-        <div class="etapas-materias">
-          {stages.map((stage) => (
-            <section aria-labelledby={`etapa-${stage.name}`.replace(/\s+/g, '-')}>
-              <h3 id={`etapa-${stage.name}`.replace(/\s+/g, '-')}>{stage.name}</h3>
-              <ul class="materias">
+        <ul class="stages">
+          {stages.map((stage, i) => (
+            <li class="stage card reveal" style={`--delay:${i * 70}ms`}>
+              <h3>{stage.name}</h3>
+              <ul>
                 {stage.subjects.map((subject) => (
-                  <li>{subject}</li>
+                  <li>
+                    <Icon name="check" size={16} strokeWidth={2.6} />
+                    {subject}
+                  </li>
                 ))}
               </ul>
-            </section>
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
-        <Fragment>
-          {hasValue(audienceSection.grades) && <p class="materias__etapas">{audienceSection.grades}</p>}
-          <ul class="materias materias--colunas">
-            {data.items.map((item) => (
-              <li>{item.title}</li>
-            ))}
-          </ul>
-        </Fragment>
+        <ul class="subjects">
+          {data.items.map((item, i) => (
+            <li class="subject card card--hover reveal" style={`--delay:${i * 50}ms`}>
+              <span class="icon-badge icon-badge--green">
+                <Icon name={item.icon} size={22} />
+              </span>
+              <span class="subject__title">{item.title}</span>
+            </li>
+          ))}
+        </ul>
       )}
     </Section>
   )
 }
 
 <style>
-  .etapas-materias {
-    display: grid;
-    gap: 2rem 2.5rem;
+  .subjects__grades {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: -1.5rem auto 2rem;
+    font-weight: 800;
+    color: var(--green-700);
+    text-align: center;
   }
 
-  .etapas-materias h3 {
-    margin-bottom: 0.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--caneta);
-    color: var(--caneta);
+  .subjects__grades :global(.icon) {
+    flex-shrink: 0;
   }
 
-  .materias {
+  .subjects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
     list-style: none;
+    max-width: 980px;
+    margin-inline: auto;
   }
 
-  .materias li {
-    padding-block: 0.6rem;
-    border-bottom: 1px solid var(--pauta);
-    font-size: var(--t-1);
+  .subject {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex: 1 1 260px;
+    max-width: 310px;
+    padding: 1rem 1.25rem 1rem 1rem;
+  }
+
+  .subject__title {
+    font-weight: 800;
+    font-size: 1.02rem;
     line-height: 1.3;
   }
 
-  .materias--colunas {
+  .stages {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-    column-gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1rem;
+    list-style: none;
+    max-width: 980px;
+    margin-inline: auto;
   }
 
-  .materias__etapas {
-    margin: 0 0 1rem;
+  .stage {
+    padding: 1.5rem;
+  }
+
+  .stage h3 {
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid var(--green-100);
+    color: var(--green-700);
+  }
+
+  .stage ul {
+    display: grid;
+    gap: 0.45rem;
+    list-style: none;
+  }
+
+  .stage li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
     font-weight: 700;
-    color: var(--caneta);
   }
 
-  @media (min-width: 720px) {
-    .etapas-materias {
-      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  .stage :global(.icon) {
+    flex-shrink: 0;
+    color: var(--green-700);
+  }
+
+  @media (max-width: 600px) {
+    .subject {
+      max-width: none;
     }
   }
 </style>

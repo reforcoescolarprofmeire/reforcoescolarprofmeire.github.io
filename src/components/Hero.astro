@@ -1,331 +1,325 @@
 ---
+import { Image } from 'astro:assets';
 import Button from './ui/Button.astro';
-import Anotacao from './ui/Anotacao.astro';
+import Icon from './ui/Icon.astro';
 import { hero } from '../data/hero';
 import { primaryContact, primaryContactLabel } from '../utils/contact';
-
-// Traços da professora, desenhados à mão
-const tracos = {
-  circulo: { viewBox: '0 0 100 40', d: 'M90 11C79 2 33 0 13 7-3 13 1 31 22 36c24 5 63 3 73-8 6-7 1-16-13-21' },
-  risco: { viewBox: '0 0 40 40', d: 'M6 36 34 4' },
-};
 ---
 
 <section id="inicio" class="hero" aria-labelledby="inicio-titulo">
-  <div class="container folha hero__folha">
-    <fieldset class="etapas">
-      <legend class="etapas__legenda">Veja uma correção de exemplo</legend>
-      <div class="etapas__opcoes">
-        {
-          hero.exercises.map((ex, i) => (
-            <label class="etapas__opcao">
-              <input type="radio" name="etapa" value={ex.id} id={`etapa-${ex.id}`} checked={i === 0} />
-              <span>{ex.etapa}</span>
-            </label>
-          ))
-        }
-      </div>
-    </fieldset>
+  <div class="hero__decor" aria-hidden="true">
+    <span class="hero__shape hero__shape--a">A</span>
+    <span class="hero__shape hero__shape--b">+</span>
+    <span class="hero__shape hero__shape--c">3</span>
+  </div>
 
-    {
-      hero.exercises.map((ex) => {
-        let ordem = 0;
-        return (
-          <div class="com-nota exercicio" data-etapa={ex.id}>
-            <p class="exercicio__rotulo">
-              {ex.disciplina} · {ex.etapa}
-            </p>
-            <p class="exercicio__enunciado">{ex.enunciado}</p>
-            <div class="exercicio__resposta">
-              {ex.resposta.map((linha) => (
-                <p>
-                  {linha.map((parte) => {
-                    if (typeof parte === 'string') return parte;
-                    const t = tracos[parte.marca];
-                    const atraso = 0.4 + ordem++ * 0.6;
-                    return (
-                      <span class:list={['marca', `marca--${parte.marca}`]}>
-                        {parte.texto}
-                        <svg viewBox={t.viewBox} preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                          <path d={t.d} pathLength="1" style={`--atraso:${atraso}s`} />
-                        </svg>
-                      </span>
-                    );
-                  })}
-                </p>
-              ))}
-            </div>
-            <p class="sr-only">Correção: {ex.descricao}</p>
-            <Anotacao top={ex.notaTop} class="exercicio__nota">
-              {ex.nota.regra}
-              <span class="exercicio__correto">{ex.nota.correto}</span>
-            </Anotacao>
-          </div>
-        );
-      })
-    }
-
-    <div class="hero__texto">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="eyebrow">{hero.eyebrow}</p>
       <h1 id="inicio-titulo" class="hero__title">{hero.title}</h1>
       <p class="hero__subtitle">{hero.subtitle}</p>
 
       <div class="hero__actions">
-        <Button href={primaryContact.href} external={primaryContact.external} size="lg">
+        <Button
+          href={primaryContact.href}
+          external={primaryContact.external}
+          size="lg"
+          icon="message"
+          iconPosition="start"
+        >
           {primaryContactLabel}
         </Button>
-        <a href={hero.secondaryCta.href} class="hero__link">{hero.secondaryCta.label}</a>
+        <Button href={hero.secondaryCta.href} variant="secondary" size="lg">
+          {hero.secondaryCta.label}
+        </Button>
       </div>
 
-      <ul class="hero__highlights lista-traco lista-traco--2" aria-label="Diferenciais do reforço">
-        {hero.highlights.map((item) => <li>{item.text}</li>)}
+      <ul class="hero__highlights" aria-label="Diferenciais do reforço">
+        {
+          hero.highlights.map((item) => (
+            <li>
+              <span class="hero__check">
+                <Icon name="check" size={16} strokeWidth={2.6} />
+              </span>
+              {item.text}
+            </li>
+          ))
+        }
       </ul>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__frame">
+        <Image
+          src={hero.image.src}
+          alt={hero.image.alt}
+          widths={[420, 640, 900, 1122]}
+          sizes="(min-width: 1024px) 520px, (min-width: 640px) 70vw, 92vw"
+          loading="eager"
+          fetchpriority="high"
+          class="hero__image"
+        />
+      </div>
+      <div class="hero__badge" aria-hidden="true">
+        <span class="icon-badge icon-badge--yellow"><Icon name="star" size={22} /></span>
+        <span>
+          <strong>{hero.badge.title}</strong>
+          <small>{hero.badge.text}</small>
+        </span>
+      </div>
+      <svg class="hero__dots" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="hero-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="2.5" fill="currentColor"></circle>
+          </pattern>
+        </defs>
+        <rect width="120" height="120" fill="url(#hero-dots)"></rect>
+      </svg>
     </div>
   </div>
 </section>
 
 <style>
-  .hero__folha {
-    padding-block: clamp(1.75rem, 1.25rem + 2.5vw, 3.5rem) var(--space-section);
-  }
-
-  /* Seletor de etapa */
-  .etapas {
-    margin: 0 0 1.75rem;
-    padding: 0;
-    border: 0;
-    min-width: 0;
-  }
-
-  .etapas__legenda {
-    padding: 0;
-    margin-bottom: 0.6rem;
-    font-size: var(--t--1);
-    color: var(--grafite-suave);
-  }
-
-  .etapas__opcoes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .etapas__opcao {
+  .hero {
     position: relative;
-    cursor: pointer;
+    overflow: hidden;
+    padding-block: clamp(2.5rem, 1.5rem + 5vw, 6rem) clamp(4rem, 3rem + 4vw, 7rem);
+    background:
+      radial-gradient(900px 480px at 85% 10%, var(--green-50), transparent 70%),
+      radial-gradient(700px 520px at 0% 100%, var(--yellow-50), transparent 70%),
+      linear-gradient(180deg, var(--blue-50), var(--white));
   }
 
-  .etapas__opcao input {
-    position: absolute;
-    opacity: 0;
-    inset: 0;
-    margin: 0;
-    cursor: pointer;
-  }
-
-  .etapas__opcao span {
-    display: block;
-    min-height: 44px;
-    padding: 0.6rem 1rem;
-    border: 1px solid var(--pauta-forte);
-    border-radius: var(--raio-botao);
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--grafite);
-  }
-
-  .etapas__opcao:hover span {
-    border-color: var(--caneta);
-    color: var(--caneta);
-  }
-
-  .etapas__opcao input:checked + span {
-    background: var(--caneta);
-    border-color: var(--caneta);
-    color: var(--sobre-caneta);
-  }
-
-  .etapas__opcao input:focus-visible + span {
-    outline: 3px solid var(--caneta);
-    outline-offset: 3px;
-  }
-
-  /* Exercícios: só o da etapa escolhida aparece (sem JavaScript) */
-  .exercicio {
-    display: none;
-    max-width: 40rem;
-  }
-
-  .hero:has(#etapa-fund1:checked) [data-etapa='fund1'],
-  .hero:has(#etapa-fund2:checked) [data-etapa='fund2'],
-  .hero:has(#etapa-medio:checked) [data-etapa='medio'] {
-    display: block;
-  }
-
-  @supports not selector(:has(*)) {
-    [data-etapa='fund1'] {
-      display: block;
-    }
-
-    .etapas {
-      display: none;
-    }
-  }
-
-  .exercicio__rotulo {
-    margin: 0 0 0.25rem;
-    font-size: var(--t--1);
-    color: var(--grafite-suave);
-  }
-
-  .exercicio__enunciado {
-    margin: 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--pauta);
-    font-weight: 700;
-  }
-
-  .exercicio__resposta {
-    padding-top: 0.6rem;
-    font-size: var(--t-2);
-    line-height: 1.75;
-    color: var(--caneta);
-  }
-
-  .exercicio__resposta p {
-    margin: 0;
-  }
-
-  .marca {
+  .hero__grid {
     position: relative;
-    display: inline-block;
-    white-space: nowrap;
-  }
-
-  .marca svg {
-    position: absolute;
-    inset: -0.2em -0.35em -0.1em;
-    width: calc(100% + 0.7em);
-    height: calc(100% + 0.3em);
-    max-width: none;
-    overflow: visible;
-    pointer-events: none;
-  }
-
-  .marca--risco svg {
-    inset: 0.15em -0.15em 0.1em;
-    width: calc(100% + 0.3em);
-    height: calc(100% - 0.25em);
-  }
-
-  .marca path {
-    fill: none;
-    stroke: var(--correcao);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .exercicio :global(.exercicio__nota) {
-    margin-top: 1rem;
-  }
-
-  .exercicio__correto {
-    display: block;
-    margin-top: 0.3rem;
-  }
-
-  /* Texto */
-  .hero__texto {
-    margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: clamp(2.5rem, 2rem + 3vw, 4.5rem);
   }
 
   .hero__title {
-    font-size: var(--t-5);
-    line-height: 1.1;
-    max-width: 18ch;
-    margin-bottom: 1rem;
+    font-size: var(--fs-800);
+    font-weight: 600;
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
   }
 
   .hero__subtitle {
-    font-size: var(--t-1);
-    line-height: 1.5;
-    max-width: 54ch;
-    margin-bottom: 1.75rem;
+    max-width: 38rem;
+    font-size: var(--fs-500);
+    color: var(--color-muted);
+    margin-bottom: 2rem;
   }
 
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem 1.5rem;
+    gap: 0.85rem;
     margin-bottom: 2.25rem;
   }
 
-  .hero__link {
-    font-weight: 700;
-  }
-
   .hero__highlights {
-    max-width: 40rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--pauta);
-    color: var(--grafite-suave);
-    font-size: 0.975rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 0.75rem 1.25rem;
+    list-style: none;
+    max-width: 36rem;
   }
 
-  @media (min-width: 960px) {
-    .exercicio :global(.exercicio__nota) {
-      margin-top: 0;
-      font-size: 1.25rem;
+  .hero__highlights li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 700;
+    font-size: 0.975rem;
+    color: var(--ink-900);
+  }
+
+  .hero__check {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--green-100);
+    color: var(--green-700);
+  }
+
+  .hero__media {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 520px);
+  }
+
+  .hero__frame {
+    position: relative;
+    z-index: 1;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) 96px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 6px solid var(--white);
+    background: var(--blue-100);
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+
+  .hero__media::before {
+    content: '';
+    position: absolute;
+    inset: 8% -6% -5% 12%;
+    border-radius: 40px;
+    background: var(--yellow-300);
+    opacity: 0.55;
+    transform: rotate(4deg);
+  }
+
+  .hero__badge {
+    position: absolute;
+    z-index: 2;
+    left: -1rem;
+    bottom: 12%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.1rem 0.85rem 0.85rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 260px;
+  }
+
+  .hero__badge strong {
+    display: block;
+    font-size: 0.975rem;
+    line-height: 1.25;
+  }
+
+  .hero__badge small {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-500);
+  }
+
+  .hero__dots {
+    position: absolute;
+    top: -26px;
+    right: -26px;
+    color: var(--blue-600);
+    opacity: 0.18;
+  }
+
+  .hero__decor {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__shape {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .hero__shape--a {
+    top: 12%;
+    left: 3%;
+    font-size: 5rem;
+    color: var(--blue-600);
+    opacity: 0.06;
+    transform: rotate(-12deg);
+  }
+
+  .hero__shape--b {
+    bottom: 10%;
+    left: 44%;
+    font-size: 4rem;
+    color: var(--green-600);
+    opacity: 0.12;
+  }
+
+  .hero__shape--c {
+    top: 8%;
+    right: 4%;
+    font-size: 4.5rem;
+    color: var(--yellow-500);
+    opacity: 0.22;
+    transform: rotate(10deg);
+  }
+
+  @media (min-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .hero__media {
+      justify-self: end;
     }
   }
 
-  @media (max-width: 520px) {
+  @media (max-width: 1023px) {
+    .hero__content {
+      text-align: center;
+    }
+
+    .hero__subtitle,
+    .hero__highlights {
+      margin-inline: auto;
+    }
+
+    .hero__actions {
+      justify-content: center;
+    }
+
+    .hero__highlights {
+      text-align: start;
+      width: fit-content;
+    }
+
+    .hero__shape--b {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__shape--a,
+    .hero__shape--c {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
     .hero__actions :global(.btn) {
       width: 100%;
     }
 
-    .etapas__opcoes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .hero__highlights {
+      grid-template-columns: 1fr;
     }
 
-    .etapas__opcao:last-child {
-      grid-column: 1 / -1;
-    }
-  }
-
-  /* Única animação automática: a correção toca ao carregar a página e de novo
-     quando o usuário troca de etapa (o exercício volta a ser exibido).
-     Com movimento reduzido, o estado corrigido já aparece pronto. */
-  @media (prefers-reduced-motion: no-preference) {
-    .marca path {
-      stroke-dasharray: 1;
-      animation: desenhar 0.6s ease-out var(--atraso, 0.4s) both;
+    .hero__badge {
+      left: 50%;
+      bottom: -1.25rem;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 1.5rem);
     }
 
-    .marca--risco path {
-      animation-duration: 0.3s;
+    .hero__frame {
+      border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 64px;
     }
 
-    .exercicio :global(.exercicio__nota) {
-      animation: aparecer 0.5s ease-out 1.5s both;
-    }
-  }
-
-  @keyframes desenhar {
-    from {
-      stroke-dashoffset: 1;
-    }
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  @keyframes aparecer {
-    from {
-      opacity: 0;
+    .hero__dots {
+      right: -10px;
     }
   }
 </style>

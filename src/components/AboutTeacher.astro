@@ -1,28 +1,30 @@
 ---
 import { Image } from 'astro:assets';
 import Section from './ui/Section.astro';
-import Anotacao from './ui/Anotacao.astro';
+import Icon from './ui/Icon.astro';
 import { teacher } from '../data/teacher';
 
 // Blocos de credenciais: só aparecem os que tiverem itens cadastrados.
 const credentials = [
-  { title: 'Formação', items: teacher.education },
-  { title: 'Experiência', items: teacher.experience },
-  { title: 'Cursos', items: teacher.courses },
-  { title: 'Especializações', items: teacher.specializations },
+  { title: 'Formação', icon: 'graduation-cap', items: teacher.education },
+  { title: 'Experiência', icon: 'briefcase', items: teacher.experience },
+  { title: 'Cursos', icon: 'book-open', items: teacher.courses },
+  { title: 'Especializações', icon: 'award', items: teacher.specializations },
 ].filter((block) => block.items.length > 0);
 ---
 
-<Section id="sobre">
+<Section id="sobre" tone="blue">
   <div class="about">
-    <div class="about__media">
-      <Image
-        src={teacher.portrait.src}
-        alt={teacher.portrait.alt}
-        widths={[400, 600, 800]}
-        sizes="(min-width: 960px) 300px, (min-width: 560px) 260px, 92vw"
-        class="about__img"
-      />
+    <div class="about__media reveal">
+      <div class="about__photo">
+        <Image
+          src={teacher.portrait.src}
+          alt={teacher.portrait.alt}
+          widths={[400, 600, 800]}
+          sizes="(min-width: 1024px) 460px, 90vw"
+          class="about__img"
+        />
+      </div>
 
       {
         teacher.moments.length > 0 && (
@@ -47,47 +49,42 @@ const credentials = [
     </div>
 
     <div class="about__content">
-      <h2 id="sobre-titulo" class="section-title">{teacher.title}</h2>
-      {
-        teacher.paragraphs.map((text, i) =>
-          i === teacher.paragraphs.length - 1 ? (
-            <div class="com-nota">
-              <p class="about__text">{text}</p>
-              <Anotacao top="0.4rem">conversa com a família em cada etapa</Anotacao>
-            </div>
-          ) : (
-            <p class="about__text">{text}</p>
-          ),
-        )
-      }
+      <p class="eyebrow reveal">{teacher.eyebrow}</p>
+      <h2 id="sobre-titulo" class="section-title reveal">{teacher.title}</h2>
+      {teacher.paragraphs.map((text) => <p class="about__text reveal">{text}</p>)}
 
-      <dl class="definicoes about__values">
+      <ul class="about__values">
         {
-          teacher.values.map((value) => (
-            <div>
-              <dt>{value.title}</dt>
-              <dd>{value.text}</dd>
-            </div>
+          teacher.values.map((value, i) => (
+            <li class="reveal" style={`--delay:${i * 80}ms`}>
+              <span class="icon-badge icon-badge--green">
+                <Icon name={value.icon} size={22} />
+              </span>
+              <div>
+                <h3>{value.title}</h3>
+                <p>{value.text}</p>
+              </div>
+            </li>
           ))
         }
-      </dl>
+      </ul>
 
       {
         credentials.length > 0 && (
-          <dl class="definicoes about__credentials">
+          <div class="about__credentials">
             {credentials.map((block) => (
-              <div>
-                <dt>{block.title}</dt>
-                <dd>
-                  <ul class="lista-traco">
-                    {block.items.map((item) => (
-                      <li>{item}</li>
-                    ))}
-                  </ul>
-                </dd>
+              <div class="credential card">
+                <h3>
+                  <Icon name={block.icon} size={20} /> {block.title}
+                </h3>
+                <ul>
+                  {block.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
               </div>
             ))}
-          </dl>
+          </div>
         )
       }
     </div>
@@ -97,71 +94,144 @@ const credentials = [
 <style>
   .about {
     display: grid;
-    gap: clamp(2rem, 1.5rem + 2vw, 3rem);
-    align-items: start;
+    gap: clamp(2.5rem, 2rem + 3vw, 5rem);
+    align-items: center;
   }
 
   .about__media {
-    max-width: 300px;
+    position: relative;
+    width: min(100%, 460px);
+    justify-self: center;
+  }
+
+  .about__photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--blue-100);
   }
 
   .about__img {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    height: 100%;
     object-fit: cover;
     object-position: 50% 40%;
   }
 
+  .about__media::before {
+    content: '';
+    position: absolute;
+    inset: -18px 18px 18px -18px;
+    border: 2px dashed var(--blue-600);
+    border-radius: var(--radius-xl);
+    opacity: 0.25;
+  }
+
   .about__moments {
-    margin: 1rem 0 0;
+    position: absolute;
+    right: -0.75rem;
+    bottom: -1.5rem;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
   }
 
   .about__moments ul {
     display: flex;
-    gap: 0.5rem;
     list-style: none;
   }
 
+  .about__moments li + li {
+    margin-left: -12px;
+  }
+
   .about__moments img {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
     object-fit: cover;
+    border: 3px solid var(--white);
+    box-shadow: var(--shadow-sm);
   }
 
   .about__moments figcaption {
     margin-top: 0.4rem;
-    font-size: var(--t--1);
-    color: var(--grafite-suave);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink-500);
   }
 
   .about__text {
-    max-width: 62ch;
+    font-size: var(--fs-500);
+    color: var(--color-muted);
   }
 
   .about__values {
-    margin-top: 1.5rem;
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    list-style: none;
+  }
+
+  .about__values li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .about__values h3 {
+    margin-bottom: 0.15rem;
+    font-size: 1.1rem;
+  }
+
+  .about__values p {
+    margin: 0;
+    color: var(--color-muted);
   }
 
   .about__credentials {
-    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
-  @media (min-width: 560px) {
+  .credential {
+    padding: 1.25rem;
+  }
+
+  .credential h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    color: var(--blue-800);
+  }
+
+  .credential ul {
+    padding-left: 1.1rem;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 1024px) {
     .about {
-      grid-template-columns: minmax(200px, 260px) 1fr;
+      grid-template-columns: 0.85fr 1.15fr;
     }
   }
 
-  @media (min-width: 960px) {
-    .about {
-      grid-template-columns: 260px 1fr;
-      gap: 3rem;
+  @media (max-width: 480px) {
+    .about__moments {
+      right: 50%;
+      transform: translateX(50%);
+      width: max-content;
     }
-  }
 
-  @media (max-width: 559px) {
-    .about__media {
-      max-width: 240px;
+    .about__media::before {
+      inset: -10px 10px 10px -10px;
     }
   }
 </style>

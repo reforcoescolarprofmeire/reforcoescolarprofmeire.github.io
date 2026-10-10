@@ -1,31 +1,100 @@
 ---
 import Section from './ui/Section.astro';
 import SectionHeader from './ui/SectionHeader.astro';
-import Grifado from './ui/Grifado.astro';
+import Icon from './ui/Icon.astro';
 import { problemsSection as data } from '../data/problems';
 ---
 
-<Section id="dificuldades">
-  <SectionHeader id="dificuldades-titulo" title={data.title} intro={data.intro} />
+<Section id="dificuldades" tone="white">
+  <SectionHeader id="dificuldades-titulo" eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
 
-  <ul class="problems lista-traco lista-traco--2">
-    {data.items.map((item) => <li>{item.text}</li>)}
+  <ul class="problems">
+    {
+      data.items.map((item, i) => (
+        <li class="problem card card--hover reveal" style={`--delay:${(i % 5) * 60}ms`}>
+          <span class="icon-badge">
+            <Icon name={item.icon} size={22} />
+          </span>
+          <p>{item.text}</p>
+        </li>
+      ))
+    }
   </ul>
 
-  <p class="problems__closing">
-    <Grifado texto={data.closing} trecho="estudar pode se tornar muito mais simples" />
-  </p>
+  <div class="problems__closing reveal">
+    <span class="icon-badge icon-badge--green"><Icon name="heart" size={22} /></span>
+    <p>{data.closing}</p>
+  </div>
 </Section>
 
 <style>
   .problems {
-    max-width: 52rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+    gap: 1rem;
+    list-style: none;
+  }
+
+  .problem {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.35rem 1.25rem;
+  }
+
+  .problem p {
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.45;
   }
 
   .problems__closing {
-    margin: clamp(2rem, 1.5rem + 2vw, 2.75rem) 0 0;
-    font-size: var(--t-1);
-    line-height: 1.5;
-    max-width: 46ch;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 780px;
+    margin: clamp(2rem, 1.5rem + 2vw, 3rem) auto 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+  }
+
+  .problems__closing p {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-500);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ink-900);
+  }
+
+  @media (min-width: 481px) and (max-width: 1099px) {
+    .problems {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .problems {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .problems {
+      grid-template-columns: 1fr;
+    }
+
+    .problem {
+      flex-direction: row;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .problems__closing {
+      flex-direction: column;
+      text-align: center;
+    }
   }
 </style>

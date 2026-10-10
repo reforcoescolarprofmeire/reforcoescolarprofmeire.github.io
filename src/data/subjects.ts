@@ -1,24 +1,27 @@
 /**
- * DISCIPLINAS
- * `stages`: disciplinas atendidas em cada etapa. Preencha só com o que a
- * Professora Meire confirmar. Ex.: subjects: ['Português', 'Matemática', 'Ciências'].
- * Enquanto as três listas estiverem vazias, o site mostra a lista geral `items`.
+ * ÁREAS DE ACOMPANHAMENTO
+ * Lista editável: adicione, remova ou renomeie itens conforme as
+ * disciplinas confirmadas pela Professora Meire.
+ * Ícones disponíveis: veja src/components/ui/Icon.astro.
  */
 export const subjectsSection = {
+  eyebrow: 'Áreas de acompanhamento',
   title: 'Disciplinas',
-  intro: 'O foco é sempre a necessidade do aluno. Consulte a professora para confirmar como sua dúvida pode ser trabalhada.',
+  /** Disciplinas de cada etapa. Preencha só com o que a professora confirmar.
+   *  Enquanto as três listas estiverem vazias, aparece a lista geral `items` abaixo. */
   stages: [
     { name: 'Fundamental I', subjects: [] as string[] },
     { name: 'Fundamental II', subjects: [] as string[] },
     { name: 'Ensino Médio', subjects: [] as string[] },
   ],
+  intro: 'O foco é sempre a necessidade do aluno. Consulte a professora para confirmar como sua dúvida pode ser trabalhada.',
   items: [
-    { title: 'Matemática' },
-    { title: 'Língua Portuguesa' },
-    { title: 'Leitura e interpretação' },
-    { title: 'Produção de texto' },
-    { title: 'Atividades escolares' },
-    { title: 'Preparação para avaliações' },
-    { title: 'Organização dos estudos' },
+    { icon: 'calculator', title: 'Matemática' },
+    { icon: 'type', title: 'Língua Portuguesa' },
+    { icon: 'book-open', title: 'Leitura e interpretação' },
+    { icon: 'pen', title: 'Produção de texto' },
+    { icon: 'notebook', title: 'Atividades escolares' },
+    { icon: 'clipboard', title: 'Preparação para avaliações' },
+    { icon: 'list-checks', title: 'Organização dos estudos' },
   ],
 };
