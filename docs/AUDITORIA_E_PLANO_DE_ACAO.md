@@ -1,4 +1,4 @@
-# Auditoria e plano de ação: site da Professora Eudimere (Meire)
+# Auditoria e plano de ação: site da Professora Eudemeire (Meire)
 
 Data: 14/11/2026 · Auditado: versão publicada (commit `c2dcaea`, https://reforcoescolarprofmeire.github.io) e código em `src/`.
 Documentos relacionados: `docs/PROMPT_REDESIGN.md` (instruções para o Claude executar) e `docs/QUESTIONARIO_PROFESSORA.md` (dados a coletar com a professora).
@@ -17,7 +17,7 @@ O site está tecnicamente bem feito: é rápido, organizado e trata bem os dados
 | 4 | Não há **planos, formatos nem preços** (nem um "a partir de"). O pai não sabe o que está comprando. | Alta |
 | 5 | O site é longo e repetitivo: 15 seções e **61 cartões com o mesmo visual** (ícone + texto curto). São cerca de 14.200 px no computador e **~25 telas de rolagem no celular**. Problemas, Benefícios, Metodologia e Acompanhamento dizem quase a mesma coisa. | Alta |
 | 6 | Não há credenciais: formação, experiência e especializações estão vazias. Também não há depoimentos (a seção fica oculta). | Alta |
-| 7 | O nome completo da professora (Eudimere) e a cidade ou bairro não aparecem, o que prejudica a confiança e a busca local no Google. | Média |
+| 7 | O nome completo da professora (Eudemeire) e a cidade ou bairro não aparecem, o que prejudica a confiança e a busca local no Google. | Média |
 | 8 | O hero no celular empurra a foto da professora para baixo da primeira tela, e há 8 alvos de toque com menos de 40 px. | Média |
 | 9 | Falta página de privacidade, consentimento de imagem dos alunos (LGPD/ECA) e dados estruturados de negócio local. | Média |
 
@@ -70,7 +70,7 @@ Ordem atual: Hero → Disciplinas → Dificuldades (10) → Professora → Como 
 
 ## 3. Novo posicionamento (proposta)
 
-**Quem:** Professora Eudimere ("Meire"). Validar se a professora prefere aparecer como "Professora Meire" com o nome completo na seção Sobre.
+**Quem:** Professora Eudemeire ("Meire"). Validar se a professora prefere aparecer como "Professora Meire" com o nome completo na seção Sobre.
 
 **O quê:** acompanhamento escolar com abordagem psicopedagógica, ou seja, reforço que investiga **por que** o aluno não aprende, cria um plano individual e mantém a família informada.
 
@@ -183,7 +183,7 @@ Cada sessão termina com uma prévia local para o usuário ver antes de qualquer
 ## 9. Pendências que só o usuário ou a professora resolvem
 
 1. Responder o questionário (`docs/QUESTIONARIO_PROFESSORA.md`).
-2. Confirmar a grafia do nome (Eudimere) e como ela prefere ser chamada no site.
+2. Grafia do nome confirmada em 14/11: Eudemeire. Confirmar como ela prefere ser chamada no site.
 3. Confirmar se ela tem especialização em Psicopedagogia (define o vocabulário do site inteiro).
 4. Enviar fotos **reais**: da professora, do espaço e dos materiais. Fotos de alunos só com autorização escrita.
 5. Decidir planos, preços (ou "consulte") e a política de faltas.

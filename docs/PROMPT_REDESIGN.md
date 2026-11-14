@@ -11,7 +11,7 @@ Atue como desenvolvedor front-end sênior, especialista em UX e conversão de si
 
 ## Contexto do negócio
 
-- Cliente: **Professora Eudimere, conhecida como "Professora Meire"**. Ela dá reforço escolar com **fundamentação psicopedagógica**: investiga por que o aluno não aprende, monta um plano individual e acompanha a família de perto.
+- Cliente: **Professora Eudemeire, conhecida como "Professora Meire"**. Ela dá reforço escolar com **fundamentação psicopedagógica**: investiga por que o aluno não aprende, monta um plano individual e acompanha a família de perto.
 - Quem decide a compra: mães, pais, avós, tios e responsáveis. Quem é atendido: crianças e adolescentes (do Fundamental I ao Ensino Médio, a confirmar).
 - O site hoje vende "reforço escolar genérico". O objetivo é **vender o acompanhamento psicopedagógico e os planos de acompanhamento**, com aparência mais profissional, sem perder o acolhimento.
 

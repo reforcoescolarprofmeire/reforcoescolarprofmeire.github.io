@@ -16,13 +16,13 @@ export type Plan = {
 
 export const plansSection = {
   eyebrow: 'Planos',
-  title: 'Escolha o acompanhamento ideal para o seu filho',
+  title: 'Escolha o acompanhamento ideal para o seu filho ou filha',
   intro: 'Todo acompanhamento começa pela avaliação inicial. Depois dela, a professora indica o plano mais adequado. Você não precisa decidir sozinho.',
   featuredLabel: 'Recomendado',
   emptyPrice: 'Consulte valores',
   emptyFrequency: 'Frequência a combinar',
   ctaLabel: 'Quero este plano',
-  footnote: 'Valores, horários, formato e reposição de faltas são combinados na conversa inicial.',
+  footnote: 'Todos os planos podem ser em casa (Salvador) ou online. Valores, horários e reposição de faltas são combinados na conversa inicial.',
 };
 
 export const assessment = {
@@ -36,26 +36,26 @@ export const plans: Plan[] = [
   {
     id: 'essencial',
     name: 'Essencial',
-    forWho: 'Para dificuldades pontuais em uma ou duas matérias.',
+    forWho: 'Para dificuldades pontuais em uma ou duas matérias ou numa unidade mais pesada.',
     frequency: '',
     price: '',
-    features: ['Acompanhamento das tarefas e provas', 'Revisão dos conteúdos com dúvida', 'Retorno para a família'],
+    features: ['Revisão dos conteúdos com dúvida', 'Preparação para provas e trabalhos', 'Retorno para a família'],
   },
   {
     id: 'acompanhamento',
     name: 'Acompanhamento',
-    forWho: 'Quando a dificuldade vai além de uma matéria: leitura, atenção, organização ou confiança.',
+    forWho: 'Quando a dificuldade vai além de uma matéria: rotina, organização, interpretação ou confiança.',
     frequency: '',
     price: '',
-    features: ['Plano de acompanhamento individual', 'Estratégias de estudo e organização', 'Devolutivas periódicas para a família', 'Ajustes do plano conforme a evolução'],
+    features: ['Plano de acompanhamento individual', 'Método de estudo e organização da rotina', 'Apoio na transição para o 6º ano ou o Ensino Médio', 'Devolutivas periódicas para a família'],
     featured: true,
   },
   {
     id: 'intensivo',
     name: 'Intensivo',
-    forWho: 'Para recuperação, fim de unidade ou quando é preciso mais presença.',
+    forWho: 'Para recuperação, fim de ano letivo ou quando é preciso mais presença.',
     frequency: '',
     price: '',
-    features: ['Tudo do plano Acompanhamento', 'Mais encontros por semana', 'Metas de curto prazo', 'Contato com a escola quando for útil'],
+    features: ['Tudo do plano Acompanhamento', 'Mais encontros por semana', 'Metas de curto prazo para provas e recuperação', 'Contato com a escola quando for útil'],
   },
 ];

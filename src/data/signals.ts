@@ -1,27 +1,27 @@
 /**
  * SINAIS DE ALERTA
- * Situações que os responsáveis reconhecem. No máximo 2 por grupo, para a seção ficar curta.
+ * Situações que os responsáveis de pré-adolescentes e adolescentes reconhecem. No máximo 2 por grupo.
  */
 export const signalsSection = {
   eyebrow: 'Para mães, pais e responsáveis',
-  title: 'Você percebe algum destes sinais no seu filho?',
-  intro: 'Eles são mais comuns do que parecem e quase nunca são preguiça. Muitas vezes, falta entender como aquela criança ou adolescente aprende.',
+  title: 'Você reconhece algum destes sinais no seu filho ou na sua filha?',
+  intro: 'Entre os 10 e os 18 anos, a escola muda muito: mais matérias, mais professores, mais cobrança. Quase nunca é preguiça. Muitas vezes, falta método e apoio na medida certa.',
   groups: [
     {
-      icon: 'book-open',
-      title: 'Na aprendizagem',
-      items: ['Estuda, mas não consegue mostrar o que sabe nas provas', 'Tem dificuldade com leitura, escrita ou matemática básica'],
-    },
-    {
-      icon: 'heart',
-      title: 'Nas emoções',
-      items: ['Fica inseguro, ansioso ou desiste rápido diante de uma tarefa', 'Diz que "não é bom" em uma matéria ou não quer ir à escola'],
+      icon: 'trending-up',
+      title: 'Nas notas',
+      items: ['As notas caíram na passagem para o 6º ano ou para o Ensino Médio', 'Estuda, mas não consegue mostrar o que sabe nas provas'],
     },
     {
       icon: 'calendar',
-      title: 'Na organização',
-      items: ['Perde prazos, esquece materiais e acumula conteúdo', 'Precisa de alguém ao lado para fazer as tarefas de casa'],
+      title: 'Na rotina',
+      items: ['Deixa tudo para a véspera e acumula conteúdo', 'Se perde com muitas matérias, prazos e trabalhos'],
+    },
+    {
+      icon: 'heart',
+      title: 'Na confiança',
+      items: ['Fica ansioso antes das provas ou trava na hora', 'Diz que "não é bom" em uma matéria e desanima'],
     },
   ],
-  closing: 'Não é falta de esforço. Muitas vezes, é falta do apoio certo.',
+  closing: 'Não é falta de esforço. É falta do método e do apoio certos.',
 };

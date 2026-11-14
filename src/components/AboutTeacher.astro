@@ -16,15 +16,29 @@ const credentials = [
 <Section id="sobre" tone="blue">
   <div class="about">
     <div class="about__media reveal">
-      <div class="about__photo">
-        <Image
-          src={teacher.portrait.src}
-          alt={teacher.portrait.alt}
-          widths={[400, 600, 800]}
-          sizes="(min-width: 1024px) 460px, 90vw"
-          class="about__img"
-        />
-      </div>
+      {
+        teacher.portrait ? (
+          <div class="about__photo">
+            <Image
+              src={teacher.portrait.src}
+              alt={teacher.portrait.alt}
+              widths={[400, 600, 800]}
+              sizes="(min-width: 1024px) 460px, 90vw"
+              class="about__img"
+            />
+          </div>
+        ) : (
+          <div class="about__card">
+            <span class="about__initials" aria-hidden="true">{teacher.initials}</span>
+            <p class="about__card-name">{teacher.name}</p>
+            <p class="about__card-role">{teacher.role}</p>
+            <ul class="about__stats">
+              <li><strong>+30</strong><span>anos de experiência</span></li>
+              <li><strong>Psico&shy;pedagogia</strong><span>especialização</span></li>
+            </ul>
+          </div>
+        )
+      }
 
       {
         teacher.moments.length > 0 && (
@@ -52,7 +66,7 @@ const credentials = [
       <p class="eyebrow reveal">{teacher.eyebrow}</p>
       <h2 id="sobre-titulo" class="section-title reveal">{teacher.title}</h2>
       {teacher.fullName && (
-        <p class="about__fullname reveal">Professora {teacher.fullName}, conhecida como {teacher.name}</p>
+        <p class="about__fullname reveal">Professora {teacher.fullName}, conhecida como {teacher.name}{teacher.role && `, ${teacher.role.toLowerCase()}`}</p>
       )}
       {teacher.paragraphs.map((text) => <p class="about__text reveal">{text}</p>)}
 
@@ -97,6 +111,21 @@ const credentials = [
           </div>
         )
       }
+
+      {
+        teacher.schools.length > 0 && (
+          <div class="about__schools reveal">
+            <h3>
+              <Icon name="school" size={20} /> {teacher.schoolsTitle}
+            </h3>
+            <ul>
+              {teacher.schools.map((school) => (
+                <li>{school}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
     </div>
   </div>
 </Section>
@@ -106,6 +135,111 @@ const credentials = [
     display: grid;
     gap: clamp(2.5rem, 2rem + 3vw, 5rem);
     align-items: center;
+  }
+
+  .about__card {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    padding: clamp(2rem, 1.5rem + 2vw, 3rem) 1.5rem 3.5rem;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(160deg, var(--blue-700), var(--blue-900));
+    color: var(--white);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .about__initials {
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: var(--yellow-500);
+    color: var(--blue-900);
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    box-shadow: 0 0 0 8px rgb(255 255 255 / 0.15);
+  }
+
+  .about__card-name {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-600);
+    font-weight: 600;
+  }
+
+  .about__card-role {
+    margin: 0.25rem 0 0;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--yellow-300);
+  }
+
+  .about__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    list-style: none;
+  }
+
+  .about__stats li {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.85rem 0.5rem;
+    border-radius: var(--radius);
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  .about__stats strong {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .about__stats span {
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
+
+  .about__schools {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .about__schools h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+    font-size: 1.05rem;
+    color: var(--blue-800);
+  }
+
+  .about__schools ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+  }
+
+  .about__schools li {
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--blue-900);
   }
 
   .about__media {
@@ -260,6 +394,13 @@ const credentials = [
   @media (min-width: 1024px) {
     .about {
       grid-template-columns: 0.85fr 1.15fr;
+      align-items: start;
+    }
+
+    .about__media {
+      position: sticky;
+      top: 6.5rem;
+      margin-top: 1rem;
     }
   }
 

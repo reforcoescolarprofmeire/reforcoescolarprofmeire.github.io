@@ -1,6 +1,4 @@
 import type { ImageMetadata } from 'astro';
-import poster1 from '../assets/images/videos/capa-video-1.jpg';
-import poster2 from '../assets/images/videos/capa-video-2.jpg';
 
 /**
  * VÍDEOS
@@ -25,19 +23,5 @@ export const videosSection = {
   initialCount: 2,
 };
 
-export const videos: VideoItem[] = [
-  {
-    title: 'Aprendizado em sala',
-    description: 'A rotina de estudos com atenção a cada aluno.',
-    src: '/videos/video-2.mp4',
-    type: 'video/mp4',
-    poster: poster2,
-  },
-  {
-    title: 'Acompanhamento de perto',
-    description: 'Leitura, escrita e exercícios com orientação da professora.',
-    src: '/videos/video-1.mp4',
-    type: 'video/mp4',
-    poster: poster1,
-  },
-];
+/** Os vídeos e capas gerados por IA foram retirados em 14/11/2026. Cadastre só vídeos reais. */
+export const videos: VideoItem[] = [];

@@ -168,7 +168,7 @@ Depois de configurar o domínio, preencha `url` em `src/config/site.ts` e gere o
 
 ## Observação sobre as mídias
 
-As imagens de `IMAGENS REFORÇO/` e os vídeos de `VIDEOS/` parecem ter sido gerados por IA. Por isso, a galeria exibe o aviso "Algumas imagens são ilustrativas". As fotos de `IMAGENS PESSOA/` são reais, mas pequenas; elas aparecem em miniatura na seção "Conheça a Professora Meire".
+As imagens de `IMAGENS REFORÇO/` e os vídeos de `VIDEOS/` foram gerados por IA e **foram retirados do site em 14/11/2026** (hero, galeria, retrato e vídeos). Não volte a usá-los. As fotos de `IMAGENS PESSOA/` são reais, mas pequenas; elas aparecem em miniatura na seção "Conheça a Professora Meire". Enquanto não houver fotos reais em boa resolução, o topo e a seção da professora mostram cartões de credenciais no lugar da foto. Os dados confirmados da professora estão em `docs/DADOS_CONFIRMADOS.md`.
 
 Assim que houver fotos reais das aulas, basta substituí-las seguindo as instruções acima.
 

@@ -12,16 +12,16 @@ export const siteConfig = {
   name: 'Reforço Escolar da Professora Meire',
   shortName: 'Reforço Escolar',
   teacher: 'Professora Meire',
-  tagline: 'Reforço escolar com abordagem psicopedagógica: entender, planejar e acompanhar.',
+  tagline: 'Reforço escolar com psicopedagoga para jovens de 10 a 18 anos: entender, planejar e acompanhar.',
 
   /** Domínio final, sem barra no fim. Ex.: "https://www.reforcomeire.com.br".
    *  Enquanto estiver vazio, canonical, sitemap e URLs absolutas de SEO ficam desativados. */
   url: 'https://reforcoescolarprofmeire.github.io',
 
   seo: {
-    title: 'Professora Meire | Reforço escolar com abordagem psicopedagógica',
+    title: 'Professora Meire | Psicopedagoga e reforço escolar em Salvador e online',
     description:
-      'Acompanhamento escolar com olhar psicopedagógico para crianças e adolescentes: avaliação inicial, plano individual e devolutivas para a família. Conheça os planos da Professora Meire.',
+      'Reforço escolar com psicopedagoga para jovens de 10 a 18 anos (Fundamental II e Ensino Médio): rotina, método de estudo e preparação para provas. Atendimento domiciliar em Salvador e online para todo o Brasil.',
     ogImage: '/og-image.jpg',
     locale: 'pt_BR',
   },
@@ -29,16 +29,16 @@ export const siteConfig = {
   contact: {
     /** Somente números, com DDI e DDD. Ex.: "5571999999999".
      *  Ao preencher, os botões passam a abrir o WhatsApp e o botão flutuante aparece. */
-    whatsapp: '',
+    whatsapp: '5571993171570',
     /** Formato livre para exibição. Ex.: "(71) 3333-3333" */
     phone: '',
-    email: '',
+    email: 'eudemeiren@gmail.com',
     /** Endereço completo. Se vazio, o endereço não é exibido. */
     address: '',
     /** Bairro e cidade, para a faixa de confiança e a busca local. Ex.: "Itapuã, Salvador - BA" */
-    area: '',
+    area: 'Salvador - BA',
     /** Ex.: "Presencial e online". Se vazio, não aparece. */
-    format: '',
+    format: 'Domiciliar em Salvador e online',
     /** Ex.: "Segunda a sexta, das 8h às 18h" */
     openingHours: '',
   },
@@ -51,7 +51,7 @@ export const siteConfig = {
 
   /** Mensagem pré-preenchida ao abrir o WhatsApp pelos botões do site. */
   whatsappMessage:
-    'Olá, Professora Meire! Vi o seu site e gostaria de agendar uma conversa sobre o acompanhamento do meu filho.',
+    'Olá, Professora Meire! Vi o seu site e gostaria de agendar uma conversa sobre o acompanhamento do meu filho/minha filha.',
 
   form: {
     /** URL de um serviço/backend que receba o formulário via POST (JSON).

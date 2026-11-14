@@ -1,18 +1,28 @@
-import heroImage from '../assets/images/hero/professora-com-aluna.png';
-
+/**
+ * TOPO DA PÁGINA
+ * Sem foto por enquanto: as imagens geradas por IA foram retiradas (14/11/2026).
+ * Quando houver uma foto real da professora em boa resolução, ela pode voltar aqui.
+ */
 export const hero = {
-  eyebrow: 'Reforço escolar com abordagem psicopedagógica',
-  title: 'Mais que reforço: um plano para o jeito que seu filho aprende.',
+  eyebrow: 'Psicopedagoga · Fundamental II e Ensino Médio',
+  title: 'Seu filho mais organizado, seguro e preparado para as provas.',
   subtitle:
-    'A Professora Meire investiga por que a dificuldade acontece, monta um plano de acompanhamento só para o seu filho e mantém a família informada sobre cada avanço.',
-  /** Botão secundário. O principal abre o WhatsApp (ou o contato, enquanto não houver WhatsApp). */
-  secondaryCta: { label: 'Conhecer os planos', href: '#planos' },
-  image: {
-    src: heroImage,
-    alt: 'Professora Meire sorrindo enquanto acompanha uma aluna que escreve no caderno',
+    'Acompanhamento escolar com olhar psicopedagógico para jovens de 10 a 18 anos. A Professora Meire descobre onde está a dificuldade, monta um plano individual e ajuda o estudante a ganhar rotina, método e autonomia.',
+  /** Destaque do formato de atendimento, logo abaixo do subtítulo. */
+  format: {
+    title: 'Atendimento domiciliar em Salvador',
+    text: 'e online para todo o Brasil',
   },
-  badge: {
-    title: 'Plano individual',
-    text: 'Cada aluno com objetivos próprios',
+  /** Botão secundário. O principal abre o WhatsApp. */
+  secondaryCta: { label: 'Conhecer os planos', href: '#planos' },
+  /** Cartão de credenciais exibido no lugar da foto. Só dados confirmados. */
+  card: {
+    name: 'Professora Meire',
+    role: 'Psicopedagoga',
+    items: [
+      { icon: 'award', strong: '+30 anos', text: 'de experiência em reforço e coordenação escolar' },
+      { icon: 'graduation-cap', strong: 'Psicopedagogia', text: 'especialização, com formação em Física (UFBA)' },
+      { icon: 'map-pin', strong: 'Em casa ou online', text: 'domiciliar em Salvador, online para todo o Brasil' },
+    ],
   },
 };

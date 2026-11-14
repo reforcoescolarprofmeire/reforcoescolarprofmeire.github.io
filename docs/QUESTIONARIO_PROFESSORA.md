@@ -5,7 +5,7 @@ Nada será inventado: o que ficar em branco simplesmente não aparece no site.
 
 ## 1. Sobre você
 1. Nome completo (como deve aparecer): ______________________
-2. Como prefere ser chamada no site? ( ) Professora Meire ( ) Professora Eudimere ( ) Outro: ________
+2. Como prefere ser chamada no site? ( ) Professora Meire ( ) Professora Eudemeire ( ) Outro: ________
 3. Formação (curso, instituição, ano): ______________________
 4. Tem especialização/pós em **Psicopedagogia**? ( ) Sim, concluída: instituição/ano ________ ( ) Cursando ( ) Não
 5. Outros cursos importantes (alfabetização, neuroaprendizagem, educação inclusiva, etc.): ______________________

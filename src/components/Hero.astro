@@ -1,21 +1,16 @@
 ---
-import { Image } from 'astro:assets';
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
 import { hero } from '../data/hero';
 import { forWhomSection } from '../data/forWhom';
 import { teacher } from '../data/teacher';
-import { siteConfig } from '../config/site';
 import { primaryContact, primaryContactLabel, hasValue } from '../utils/contact';
 
 // Faixa de confiança: só itens reais/preenchidos.
 const trust = [
   hasValue(forWhomSection.grades) && { icon: 'graduation-cap', text: forWhomSection.grades },
-  teacher.experience[0] && { icon: 'briefcase', text: teacher.experience[0] },
   { icon: 'file-text', text: 'Avaliação inicial e plano individual' },
   { icon: 'users', text: 'Devolutivas para a família' },
-  hasValue(siteConfig.contact.area) && { icon: 'map-pin', text: siteConfig.contact.area },
-  hasValue(siteConfig.contact.format) && { icon: 'clock', text: siteConfig.contact.format },
 ].filter(Boolean).slice(0, 4) as { icon: string; text: string }[];
 ---
 
@@ -31,6 +26,14 @@ const trust = [
       <p class="eyebrow">{hero.eyebrow}</p>
       <h1 id="inicio-titulo" class="hero__title">{hero.title}</h1>
       <p class="hero__subtitle">{hero.subtitle}</p>
+
+      <p class="hero__format">
+        <span class="hero__format-icons" aria-hidden="true">
+          <Icon name="home" size={20} />
+          <Icon name="monitor" size={20} />
+        </span>
+        <span><strong>{hero.format.title}</strong> {hero.format.text}</span>
+      </p>
 
       <div class="hero__actions">
         <Button
@@ -60,24 +63,31 @@ const trust = [
     </div>
 
     <div class="hero__media">
-      <div class="hero__frame">
-        <Image
-          src={hero.image.src}
-          alt={hero.image.alt}
-          widths={[420, 640, 900, 1122]}
-          sizes="(min-width: 1024px) 520px, (min-width: 640px) 70vw, 92vw"
-          loading="eager"
-          fetchpriority="high"
-          class="hero__image"
-        />
-      </div>
-      <div class="hero__badge" aria-hidden="true">
-        <span class="icon-badge icon-badge--yellow"><Icon name="star" size={22} /></span>
-        <span>
-          <strong>{hero.badge.title}</strong>
-          <small>{hero.badge.text}</small>
-        </span>
-      </div>
+      <aside class="hero__card" aria-label="Sobre a professora">
+        <div class="hero__card-head">
+          <span class="hero__avatar" aria-hidden="true">{teacher.initials}</span>
+          <span>
+            <strong>{hero.card.name}</strong>
+            <small>{hero.card.role}</small>
+          </span>
+        </div>
+        <ul class="hero__card-list">
+          {
+            hero.card.items.map((item) => (
+              <li>
+                <span class="icon-badge icon-badge--green">
+                  <Icon name={item.icon} size={20} />
+                </span>
+                <span>
+                  <strong>{item.strong}</strong>
+                  <small>{item.text}</small>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+        <a class="hero__card-link" href="#sobre">Conheça a professora <Icon name="arrow-right" size={16} /></a>
+      </aside>
       <svg class="hero__dots" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
         <defs>
           <pattern id="hero-dots" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -163,22 +173,118 @@ const trust = [
     width: min(100%, 520px);
   }
 
-  .hero__frame {
-    position: relative;
-    z-index: 1;
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) 96px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    border: 6px solid var(--white);
-    background: var(--blue-100);
+  .hero__format {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: -0.75rem 0 1.75rem;
+    padding: 0.7rem 1.1rem;
+    border-radius: var(--radius);
+    background: var(--yellow-100);
+    border: 1px solid var(--yellow-300);
+    color: var(--ink-900);
+    font-size: 1rem;
   }
 
-  .hero__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 30%;
+  .hero__format strong {
+    color: var(--blue-900);
+  }
+
+  .hero__format-icons {
+    display: inline-flex;
+    gap: 0.25rem;
+    color: var(--blue-700);
+    flex-shrink: 0;
+  }
+
+  .hero__card {
+    position: relative;
+    z-index: 1;
+    padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) 72px;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line);
+  }
+
+  .hero__card-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .hero__avatar {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--blue-700);
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    box-shadow: 0 0 0 6px var(--blue-50);
+  }
+
+  .hero__card-head strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--ink-900);
+  }
+
+  .hero__card-head small {
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green-700);
+    font-size: 0.8rem;
+  }
+
+  .hero__card-list {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+  }
+
+  .hero__card-list li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero__card-list .icon-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .hero__card-list strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--blue-900);
+  }
+
+  .hero__card-list small {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--ink-500);
+  }
+
+  .hero__card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    margin-top: 1rem;
+    font-weight: 800;
+    color: var(--blue-700);
   }
 
   .hero__media::before {
@@ -189,33 +295,6 @@ const trust = [
     background: var(--yellow-300);
     opacity: 0.55;
     transform: rotate(4deg);
-  }
-
-  .hero__badge {
-    position: absolute;
-    z-index: 2;
-    left: -1rem;
-    bottom: 12%;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.85rem 1.1rem 0.85rem 0.85rem;
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    max-width: 260px;
-  }
-
-  .hero__badge strong {
-    display: block;
-    font-size: 0.975rem;
-    line-height: 1.25;
-  }
-
-  .hero__badge small {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--ink-500);
   }
 
   .hero__dots {
@@ -311,20 +390,6 @@ const trust = [
       width: 100%;
     }
 
-    /* Celular: foto real da professora já na primeira tela, compacta, acima do texto */
-    .hero__media {
-      order: -1;
-      width: 100%;
-    }
-
-    .hero__frame {
-      aspect-ratio: 16 / 10;
-    }
-
-    .hero__image {
-      object-position: 50% 25%;
-    }
-
     .hero__media::before,
     .hero__dots {
       display: none;
@@ -351,16 +416,13 @@ const trust = [
       font-size: 0.84rem;
     }
 
-    .hero__badge {
-      display: none;
+    .hero__format {
+      font-size: 0.92rem;
+      text-align: left;
     }
 
-    .hero__frame {
-      border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 64px;
-    }
-
-    .hero__dots {
-      right: -10px;
+    .hero__card {
+      border-radius: var(--radius-lg);
     }
   }
 </style>

@@ -2,24 +2,27 @@
 import Icon from './ui/Icon.astro';
 import { siteConfig } from '../config/site';
 import { hasValue, whatsappNumber } from '../utils/contact';
+
+const email = hasValue(siteConfig.contact.email) ? siteConfig.contact.email : '';
 import { plans, assessment } from '../data/plans';
 
 const endpoint = hasValue(siteConfig.form.endpoint) ? siteConfig.form.endpoint : '';
 // Modo de envio: backend > WhatsApp > demonstrativo
-const mode = endpoint ? 'endpoint' : whatsappNumber ? 'whatsapp' : 'demo';
+const mode = endpoint ? 'endpoint' : whatsappNumber ? 'whatsapp' : email ? 'email' : 'demo';
 
 const difficulties = [
-  'Leitura e escrita',
-  'Matemática',
-  'Notas abaixo do esperado',
-  'Atenção e concentração',
+  'Notas abaixo do esperado ou recuperação',
   'Organização e rotina de estudos',
-  'Insegurança ou ansiedade com a escola',
-  'Tarefas de casa',
+  'Preparação para provas',
+  'Mudança de ciclo (6º ano ou Ensino Médio)',
+  'Matemática',
+  'Interpretação e produção de texto',
+  'Ansiedade ou insegurança nas provas',
   'Outra',
 ];
 const planOptions = [assessment.name, ...plans.map((p) => p.name), 'Ainda não sei'];
 const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
+const formats = ['Em casa (Salvador)', 'Online', 'Ainda não sei'];
 ---
 
 <form
@@ -29,6 +32,7 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
   data-mode={mode}
   data-endpoint={endpoint || undefined}
   data-whatsapp={whatsappNumber || undefined}
+  data-email={email || undefined}
   aria-describedby="form-descricao"
 >
   <h3 class="form__title">Agende uma conversa</h3>
@@ -45,7 +49,7 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
 
     <div class="field">
       <label for="f-serie">Idade ou série</label>
-      <input id="f-serie" name="serie" type="text" autocomplete="off" maxlength="40" placeholder="Ex.: 9 anos, 4º ano" />
+      <input id="f-serie" name="serie" type="text" autocomplete="off" maxlength="40" placeholder="Ex.: 14 anos, 9º ano" />
     </div>
 
     <div class="field">
@@ -86,7 +90,18 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
       </div>
     </div>
 
-    <div class="field field--full">
+    <div class="field">
+      <label for="f-formato">Formato preferido</label>
+      <div class="select">
+        <select id="f-formato" name="formato">
+          <option value="">Selecione uma opção</option>
+          {formats.map((item) => <option value={item}>{item}</option>)}
+        </select>
+        <Icon name="chevron-down" size={18} />
+      </div>
+    </div>
+
+    <div class="field">
       <label for="f-dificuldade">Principal preocupação</label>
       <div class="select">
         <select id="f-dificuldade" name="dificuldade">
@@ -99,7 +114,7 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
 
     <div class="field field--full">
       <label for="f-mensagem">Mensagem</label>
-      <textarea id="f-mensagem" name="mensagem" rows="4" maxlength="1000" placeholder="Conte o que você tem percebido. Não é preciso informar o nome da criança."></textarea>
+      <textarea id="f-mensagem" name="mensagem" rows="4" maxlength="1000" placeholder="Conte o que você tem percebido. Não é preciso informar o nome do estudante."></textarea>
     </div>
   </div>
 
@@ -116,10 +131,20 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
     Seus dados são usados só para responder ao seu contato. Veja a <a href="/privacidade/">política de privacidade</a>.
   </p>
 
-  <button type="submit" class="btn btn--primary btn--lg form__submit">
-    <span>{mode === 'whatsapp' ? 'Enviar pelo WhatsApp' : 'Enviar meus dados'}</span>
-    <Icon name={mode === 'whatsapp' ? 'whatsapp' : 'send'} size={20} />
-  </button>
+  <div class="form__actions">
+    <button type="submit" class="btn btn--primary btn--lg form__submit" data-channel={mode === 'email' ? 'email' : 'default'}>
+      <span>{mode === 'whatsapp' ? 'Enviar pelo WhatsApp' : mode === 'email' ? 'Enviar por e-mail' : 'Enviar meus dados'}</span>
+      <Icon name={mode === 'whatsapp' ? 'whatsapp' : mode === 'email' ? 'mail' : 'send'} size={20} />
+    </button>
+    {
+      mode === 'whatsapp' && email && (
+        <button type="submit" class="btn btn--secondary btn--lg form__submit form__submit--alt" data-channel="email">
+          <span>Prefiro por e-mail</span>
+          <Icon name="mail" size={20} />
+        </button>
+      )
+    }
+  </div>
 
   <div class="form__status" role="status" aria-live="polite" data-form-status hidden></div>
 </form>
@@ -174,9 +199,10 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
         'Olá, Professora Meire! Vi o seu site e gostaria de agendar uma conversa.',
         '',
         `Responsável: ${data.responsavel}`,
-        data.serie && `Idade/série do aluno: ${data.serie}`,
+        data.serie && `Idade/série do estudante: ${data.serie}`,
         data.dificuldade && `Principal preocupação: ${data.dificuldade}`,
         data.plano && `Plano de interesse: ${data.plano}`,
+        data.formato && `Formato preferido: ${data.formato}`,
         data.horario && `Melhor horário: ${data.horario}`,
         `Telefone: ${data.telefone}`,
         data.mensagem && `\nMensagem: ${data.mensagem}`,
@@ -199,7 +225,15 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
       const data = Object.fromEntries(
         Array.from(new FormData(form).entries()).map(([k, v]) => [k, String(v).trim()]),
       ) as Record<string, string>;
-      const { mode, endpoint, whatsapp } = form.dataset;
+      const { mode, endpoint, whatsapp, email } = form.dataset;
+      const usedChannel = (event as SubmitEvent).submitter?.dataset.channel || 'default';
+
+      if (usedChannel === 'email' && email) {
+        const subject = 'Contato pelo site: acompanhamento escolar';
+        window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMessage(data))}`;
+        showStatus('info', 'Abrimos o seu aplicativo de e-mail com a mensagem pronta. É só enviar.');
+        return;
+      }
 
       if (mode === 'endpoint' && endpoint) {
         submit.disabled = true;
@@ -369,6 +403,10 @@ const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
   .form__submit {
     width: 100%;
     margin-top: 1.5rem;
+  }
+
+  .form__submit--alt {
+    margin-top: 0.75rem;
   }
 
   .form__submit:disabled {
