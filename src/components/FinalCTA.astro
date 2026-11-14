@@ -2,7 +2,7 @@
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
 import { finalCta as data } from '../data/cta';
-import { primaryContact, primaryContactLabel, hasWhatsapp } from '../utils/contact';
+import { primaryContact, primaryContactLabel } from '../utils/contact';
 ---
 
 <section class="final-cta" aria-labelledby="cta-final-titulo">
@@ -17,13 +17,9 @@ import { primaryContact, primaryContactLabel, hasWhatsapp } from '../utils/conta
         <Button href={primaryContact.href} external={primaryContact.external} variant="light" size="lg" icon="arrow-right">
           {primaryContactLabel}
         </Button>
-        {
-          hasWhatsapp && (
-            <Button href="#contato" variant="ghost" size="lg" class="final-cta__secondary">
-              {data.secondaryLabel}
-            </Button>
-          )
-        }
+        <Button href="#planos" variant="ghost" size="lg" class="final-cta__secondary">
+          {data.secondaryLabel}
+        </Button>
       </div>
     </div>
   </div>

@@ -21,7 +21,7 @@ const { contact } = siteConfig;
 const sameAs = [instagramUrl, facebookUrl].filter(Boolean);
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'EducationalOrganization',
+  '@type': ['EducationalOrganization', 'LocalBusiness'],
   name: siteConfig.name,
   description,
   ...(siteUrl && { url: siteUrl, image: ogImage }),
@@ -29,6 +29,8 @@ const structuredData = {
   ...(!hasValue(contact.phone) && whatsappNumber && { telephone: `+${whatsappNumber}` }),
   ...(hasValue(contact.email) && { email: contact.email }),
   ...(hasValue(contact.address) && { address: contact.address }),
+  ...(hasValue(contact.area) && { areaServed: contact.area }),
+  knowsAbout: ['Reforço escolar', 'Acompanhamento escolar', 'Abordagem psicopedagógica'],
   ...(sameAs.length && { sameAs }),
   founder: { '@type': 'Person', name: siteConfig.teacher, jobTitle: 'Professora' },
 };

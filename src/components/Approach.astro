@@ -1,0 +1,192 @@
+---
+import Section from './ui/Section.astro';
+import Icon from './ui/Icon.astro';
+import { approachSection as data } from '../data/approach';
+---
+
+<Section id="diferencial" tone="blue">
+  <div class="approach">
+    <div class="approach__text">
+      <p class="eyebrow reveal">{data.eyebrow}</p>
+      <h2 id="diferencial-titulo" class="section-title reveal">{data.title}</h2>
+      {data.paragraphs.map((text) => <p class="approach__p reveal">{text}</p>)}
+
+      <ol class="approach__pillars">
+        {
+          data.pillars.map((pillar, i) => (
+            <li class="reveal" style={`--delay:${i * 80}ms`}>
+              <span class="icon-badge">
+                <Icon name={pillar.icon} size={22} />
+              </span>
+              <div>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="approach__table-wrap reveal">
+      <table class="compare">
+        <caption class="sr-only">{data.comparison.caption}</caption>
+        <thead>
+          <tr>
+            {data.comparison.columns.map((col, i) => <th scope="col" class={i === 1 ? 'is-ours' : undefined}>{col}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            data.comparison.rows.map(([theirs, ours]) => (
+              <tr>
+                <td>
+                  <Icon name="x" size={16} strokeWidth={2.4} />
+                  {theirs}
+                </td>
+                <td class="is-ours">
+                  <Icon name="check" size={16} strokeWidth={2.6} />
+                  {ours}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="approach__note">
+        <Icon name="info" size={18} />
+        {data.note}
+      </p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .approach {
+    display: grid;
+    gap: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+    align-items: center;
+  }
+
+  .approach__p {
+    font-size: var(--fs-500);
+    color: var(--color-muted);
+  }
+
+  .approach__pillars {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.75rem;
+    list-style: none;
+    counter-reset: pilar;
+  }
+
+  .approach__pillars li {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .approach__pillars h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .approach__pillars p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .compare {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    font-size: 0.97rem;
+  }
+
+  .compare th,
+  .compare td {
+    padding: 0.95rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .compare tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .compare th {
+    font-family: var(--font-heading);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--ink-500);
+    background: var(--white);
+  }
+
+  .compare th.is-ours {
+    color: var(--white);
+    background: var(--blue-700);
+  }
+
+  .compare td {
+    color: var(--ink-500);
+  }
+
+  .compare td :global(.icon) {
+    display: inline-block;
+    vertical-align: -3px;
+    margin-right: 0.4rem;
+    color: var(--coral-500);
+  }
+
+  .compare td.is-ours {
+    background: var(--blue-50);
+    color: var(--ink-900);
+    font-weight: 700;
+  }
+
+  .compare td.is-ours :global(.icon) {
+    color: var(--green-700);
+  }
+
+  .approach__note {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    margin: 1.25rem 0 0;
+    font-size: 0.9rem;
+    color: var(--ink-700);
+  }
+
+  .approach__note :global(.icon) {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--blue-700);
+  }
+
+  @media (min-width: 1024px) {
+    .approach {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Celular: os 3 pilares já aparecem na linha do tempo logo abaixo */
+  @media (max-width: 767px) {
+    .approach__pillars {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .compare th,
+    .compare td {
+      padding: 0.8rem 0.7rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

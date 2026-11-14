@@ -1,6 +1,5 @@
 /**
- * Itens do menu. `requires` oculta o item automaticamente quando a seção
- * correspondente não tem conteúdo (ex.: nenhum depoimento cadastrado).
+ * Itens do menu (no máximo 5). `requires` oculta o item quando a seção não tem conteúdo.
  */
 export type NavItem = {
   label: string;
@@ -10,14 +9,9 @@ export type NavItem = {
 };
 
 export const navigation: NavItem[] = [
-  { label: 'Início', href: '#inicio', footer: true },
-  { label: 'Disciplinas', href: '#areas', footer: true },
-  { label: 'A professora', href: '#sobre', footer: true },
   { label: 'Como funciona', href: '#como-funciona', footer: true },
-  { label: 'Benefícios', href: '#beneficios' },
-  { label: 'Acompanhamento', href: '#acompanhamento' },
-  { label: 'Galeria', href: '#galeria', footer: true },
-  { label: 'Depoimentos', href: '#depoimentos', requires: 'testimonials' },
+  { label: 'Planos', href: '#planos', footer: true },
+  { label: 'A professora', href: '#sobre', footer: true },
   { label: 'Dúvidas', href: '#duvidas', footer: true },
   { label: 'Contato', href: '#contato', footer: true },
 ];

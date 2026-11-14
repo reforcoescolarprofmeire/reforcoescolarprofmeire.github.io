@@ -12,16 +12,16 @@ export const siteConfig = {
   name: 'Reforço Escolar da Professora Meire',
   shortName: 'Reforço Escolar',
   teacher: 'Professora Meire',
-  tagline: 'Aprendizado, atenção e confiança em cada etapa.',
+  tagline: 'Reforço escolar com abordagem psicopedagógica: entender, planejar e acompanhar.',
 
   /** Domínio final, sem barra no fim. Ex.: "https://www.reforcomeire.com.br".
    *  Enquanto estiver vazio, canonical, sitemap e URLs absolutas de SEO ficam desativados. */
   url: 'https://reforcoescolarprofmeire.github.io',
 
   seo: {
-    title: 'Reforço Escolar da Professora Meire | Acompanhamento Escolar',
+    title: 'Professora Meire | Reforço escolar com abordagem psicopedagógica',
     description:
-      'Reforço escolar com acompanhamento próximo e personalizado para crianças e adolescentes. Conheça o trabalho da Professora Meire.',
+      'Acompanhamento escolar com olhar psicopedagógico para crianças e adolescentes: avaliação inicial, plano individual e devolutivas para a família. Conheça os planos da Professora Meire.',
     ogImage: '/og-image.jpg',
     locale: 'pt_BR',
   },
@@ -35,6 +35,10 @@ export const siteConfig = {
     email: '',
     /** Endereço completo. Se vazio, o endereço não é exibido. */
     address: '',
+    /** Bairro e cidade, para a faixa de confiança e a busca local. Ex.: "Itapuã, Salvador - BA" */
+    area: '',
+    /** Ex.: "Presencial e online". Se vazio, não aparece. */
+    format: '',
     /** Ex.: "Segunda a sexta, das 8h às 18h" */
     openingHours: '',
   },
@@ -47,7 +51,7 @@ export const siteConfig = {
 
   /** Mensagem pré-preenchida ao abrir o WhatsApp pelos botões do site. */
   whatsappMessage:
-    'Olá, Professora Meire! Vi o site do reforço escolar e gostaria de receber mais informações.',
+    'Olá, Professora Meire! Vi o seu site e gostaria de agendar uma conversa sobre o acompanhamento do meu filho.',
 
   form: {
     /** URL de um serviço/backend que receba o formulário via POST (JSON).

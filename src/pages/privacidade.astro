@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/Logo.astro';
+import Footer from '../components/Footer.astro';
+import { navigation } from '../data/navigation';
+import { siteConfig } from '../config/site';
+import { hasValue } from '../utils/contact';
+
+const updated = '14/11/2026';
+const email = siteConfig.contact.email;
+---
+
+<BaseLayout
+  title={`Política de privacidade | ${siteConfig.teacher}`}
+  description="Como o site da Professora Meire trata os dados enviados pelo formulário e pelo WhatsApp."
+>
+  <header class="priv-header">
+    <div class="container priv-header__inner">
+      <Logo />
+      <a href="/" class="btn btn--secondary btn--sm">Voltar ao site</a>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container priv">
+    <h1>Política de privacidade</h1>
+    <p class="priv__updated">Atualizada em {updated}.</p>
+
+    <p>
+      Este site apresenta o trabalho da {siteConfig.teacher}. Respeitamos a Lei Geral de Proteção de Dados
+      (LGPD, Lei nº 13.709/2018) e pedimos apenas o mínimo necessário para responder ao seu contato.
+    </p>
+
+    <h2>Quais dados coletamos</h2>
+    <ul>
+      <li>
+        <strong>Formulário de contato:</strong> nome do responsável, telefone, idade ou série do aluno, principal
+        preocupação, plano de interesse, melhor horário e a mensagem que você escrever. Não pedimos o nome da criança.
+      </li>
+      <li>
+        <strong>WhatsApp:</strong> ao clicar nos botões, você é levado ao WhatsApp, e a conversa passa a seguir as regras
+        de privacidade desse aplicativo.
+      </li>
+      <li>
+        <strong>Estatísticas de visita:</strong> o site só usa ferramentas de estatística (como Google Analytics ou Meta
+        Pixel) se elas estiverem ativadas. Quando estão, elas registram dados de navegação de forma agregada.
+      </li>
+    </ul>
+
+    <h2>Para que usamos</h2>
+    <p>
+      Somente para responder ao seu contato, combinar a conversa inicial e, se você contratar o acompanhamento,
+      organizar o atendimento. Não vendemos nem compartilhamos seus dados para publicidade.
+    </p>
+
+    <h2>Informações sobre crianças e adolescentes</h2>
+    <p>
+      Informações sobre o desenvolvimento e a aprendizagem do aluno são tratadas com sigilo e usadas apenas no
+      acompanhamento. Fotos ou vídeos de alunos só são publicados com autorização por escrito dos responsáveis.
+    </p>
+
+    <h2>Por quanto tempo guardamos</h2>
+    <p>
+      Pelo tempo necessário para o atendimento. Você pode pedir a exclusão dos seus dados a qualquer momento.
+    </p>
+
+    <h2>Seus direitos</h2>
+    <p>
+      Você pode pedir acesso, correção ou exclusão dos seus dados
+      {hasValue(email) ? (<>pelo e-mail <a href={`mailto:${email}`}>{email}</a> ou </>) : ' '}
+      pelos canais de contato do site.
+    </p>
+  </main>
+
+  <Footer items={navigation} />
+</BaseLayout>
+
+<style>
+  .priv-header {
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  .priv-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: var(--header-h);
+  }
+
+  .priv {
+    max-width: 760px;
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  }
+
+  .priv h1 {
+    font-size: var(--fs-700);
+  }
+
+  .priv h2 {
+    margin-top: 2rem;
+    font-size: var(--fs-600);
+  }
+
+  .priv__updated {
+    color: var(--ink-500);
+  }
+
+  .priv ul {
+    display: grid;
+    gap: 0.75rem;
+    padding-left: 1.2rem;
+  }
+
+  .priv p,
+  .priv li {
+    color: var(--ink-700);
+  }
+</style>

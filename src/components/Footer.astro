@@ -13,6 +13,8 @@ const { items } = Astro.props;
 const links = items.filter((item) => item.footer);
 const channels = getContactChannels().filter((c) => c.id !== 'hours');
 const year = new Date().getFullYear();
+// Fora da página inicial, os links de seção voltam para a página inicial.
+const prefix = Astro.url.pathname.replace(/\/$/, '') === '' ? '' : '/';
 ---
 
 <footer class="footer">
@@ -28,7 +30,7 @@ const year = new Date().getFullYear();
         {
           links.map((item) => (
             <li>
-              <a href={item.href}>{item.label}</a>
+              <a href={`${prefix}${item.href}`}>{item.label}</a>
             </li>
           ))
         }
@@ -62,7 +64,8 @@ const year = new Date().getFullYear();
     <p>
       © <span data-year>{year}</span>{' '}{siteConfig.name}. Todos os direitos reservados.
     </p>
-    <a href="#inicio" class="footer__top">
+    <a href="/privacidade/" class="footer__privacy">Política de privacidade</a>
+    <a href={`${prefix}#inicio`} class="footer__top">
       Voltar ao topo <Icon name="arrow-up" size={16} />
     </a>
   </div>
@@ -112,6 +115,7 @@ const year = new Date().getFullYear();
     align-items: center;
     gap: 0.5rem;
     padding-block: 0.3rem;
+    min-height: 44px;
     color: rgb(255 255 255 / 0.85);
     text-decoration: none;
     overflow-wrap: anywhere;
@@ -131,6 +135,11 @@ const year = new Date().getFullYear();
     padding-block: 1.5rem;
     border-top: 1px solid rgb(255 255 255 / 0.1);
     font-size: 0.9rem;
+  }
+
+  .footer__privacy {
+    color: inherit;
+    font-weight: 700;
   }
 
   .footer__bottom p {

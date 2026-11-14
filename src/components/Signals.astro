@@ -1,0 +1,91 @@
+---
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+import { signalsSection as data } from '../data/signals';
+---
+
+<Section id="sinais" tone="white">
+  <SectionHeader id="sinais-titulo" eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
+
+  <ul class="signals">
+    {
+      data.groups.map((group, i) => (
+        <li class="signals__group reveal" style={`--delay:${i * 80}ms`}>
+          <h3>
+            <span class="icon-badge icon-badge--yellow">
+              <Icon name={group.icon} size={22} />
+            </span>
+            {group.title}
+          </h3>
+          <ul>
+            {group.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="signals__closing reveal">{data.closing}</p>
+</Section>
+
+<style>
+  .signals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 1.25rem;
+    list-style: none;
+  }
+
+  .signals__group {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--yellow-50);
+    border: 1px solid var(--yellow-100);
+  }
+
+  .signals__group h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: var(--fs-500);
+  }
+
+  .signals__group ul {
+    display: grid;
+    gap: 0.75rem;
+    list-style: none;
+  }
+
+  .signals__group li li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-700);
+    font-weight: 600;
+  }
+
+  .signals__group li li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yellow-500);
+  }
+
+  .signals__closing {
+    max-width: 640px;
+    margin: clamp(2rem, 1.5rem + 2vw, 3rem) auto 0;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: var(--fs-600);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--blue-800);
+  }
+</style>

@@ -41,6 +41,13 @@ import { hasWhatsapp, whatsappLink } from '../utils/contact';
     box-shadow: 0 14px 34px rgb(31 157 85 / 0.5);
   }
 
+  /* No celular, a barra fixa (StickyMobileCTA) já tem o WhatsApp */
+  @media (max-width: 767px) {
+    .wa-float {
+      display: none;
+    }
+  }
+
   @media (min-width: 1024px) {
     .wa-float {
       right: 1.75rem;

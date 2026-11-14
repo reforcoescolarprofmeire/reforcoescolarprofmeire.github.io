@@ -1,0 +1,72 @@
+---
+import Icon from './ui/Icon.astro';
+import { primaryContact, hasWhatsapp } from '../utils/contact';
+---
+
+<!-- Celular: barra fixa que aparece depois do topo e some perto do contato. -->
+<div class="sticky-cta" data-sticky-cta aria-label="Atalhos de contato">
+  <a
+    href={primaryContact.href}
+    class="btn btn--primary sticky-cta__main"
+    target={primaryContact.external ? '_blank' : undefined}
+    rel={primaryContact.external ? 'noopener noreferrer' : undefined}
+  >
+    <Icon name={hasWhatsapp ? 'whatsapp' : 'message'} size={20} />
+    <span>{hasWhatsapp ? 'WhatsApp' : 'Agendar'}</span>
+  </a>
+  <a href="#planos" class="btn btn--secondary">Ver planos</a>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
+  const hero = document.querySelector('#inicio');
+  const contact = document.querySelector('#contato');
+  if (bar && hero && 'IntersectionObserver' in window) {
+    let pastHero = false;
+    let nearContact = false;
+    const update = () => bar.classList.toggle('is-visible', pastHero && !nearContact);
+    new IntersectionObserver(([e]) => {
+      pastHero = !e.isIntersecting;
+      update();
+    }).observe(hero);
+    if (contact)
+      new IntersectionObserver(([e]) => {
+        nearContact = e.isIntersecting;
+        update();
+      }).observe(contact);
+  }
+</script>
+
+<style>
+  .sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 95;
+    display: none;
+    gap: 0.6rem;
+    padding: 0.65rem var(--gutter) max(0.65rem, env(safe-area-inset-bottom));
+    background: rgb(255 255 255 / 0.96);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 24px rgb(22 35 58 / 0.08);
+    transform: translateY(110%);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .sticky-cta .btn {
+    flex: 1;
+    min-height: 48px;
+    padding-inline: 0.75rem;
+  }
+
+  .sticky-cta.is-visible {
+    transform: none;
+  }
+
+  @media (max-width: 767px) {
+    .sticky-cta {
+      display: flex;
+    }
+  }
+</style>

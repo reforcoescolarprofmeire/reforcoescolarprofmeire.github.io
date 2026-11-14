@@ -2,22 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import ProblemSection from '../components/ProblemSection.astro';
-import AboutTeacher from '../components/AboutTeacher.astro';
+import Signals from '../components/Signals.astro';
+import Approach from '../components/Approach.astro';
 import HowItWorks from '../components/HowItWorks.astro';
-import Benefits from '../components/Benefits.astro';
-import TargetAudience from '../components/TargetAudience.astro';
-import Subjects from '../components/Subjects.astro';
-import Methodology from '../components/Methodology.astro';
-import TrustSection from '../components/TrustSection.astro';
-import Gallery from '../components/Gallery.astro';
-import VideoSection from '../components/VideoSection.astro';
+import Plans from '../components/Plans.astro';
+import AboutTeacher from '../components/AboutTeacher.astro';
+import ForWhom from '../components/ForWhom.astro';
 import Testimonials from '../components/Testimonials.astro';
+import VideoSection from '../components/VideoSection.astro';
+import Gallery from '../components/Gallery.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
+import StickyMobileCTA from '../components/StickyMobileCTA.astro';
 
 import { navigation } from '../data/navigation';
 import { testimonials } from '../data/testimonials';
@@ -35,23 +34,22 @@ const navItems = navigation.filter((item) => !item.requires || available[item.re
   <Header items={navItems} />
   <main id="conteudo">
     <Hero />
-    <Subjects />
-    <ProblemSection />
-    <AboutTeacher />
+    <Signals />
+    <Approach />
     <HowItWorks />
-    <Benefits />
-    <TargetAudience />
-    <Methodology />
-    <TrustSection />
-    <Gallery />
-    <VideoSection />
+    <Plans />
+    <AboutTeacher />
+    <ForWhom />
     <Testimonials />
+    <VideoSection />
+    <Gallery />
     <FAQ />
     <FinalCTA />
     <Contact />
   </main>
   <Footer items={navItems} />
   <WhatsAppButton />
+  <StickyMobileCTA />
 </BaseLayout>
 
 <script>

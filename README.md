@@ -71,15 +71,19 @@ REFORÇO/
 | Mensagem automática do WhatsApp | `src/config/site.ts` → `whatsappMessage` |
 | Domínio (canonical e sitemap) | `src/config/site.ts` → `url`. Ex.: `https://www.seudominio.com.br` |
 | Título e descrição para o Google | `src/config/site.ts` → `seo` |
+| Bairro/cidade e formato (presencial/online) | `src/config/site.ts` → `contact.area`, `contact.format` (aparecem na faixa de confiança do topo) |
 | Textos do topo (headline, botões) | `src/data/hero.ts` |
-| Textos sobre a professora, formação e cursos | `src/data/teacher.ts` |
-| Dificuldades, etapas, benefícios, metodologia | `src/data/problems.ts`, `howItWorks.ts`, `benefits.ts`, `methodology.ts` |
-| Público atendido e séries | `src/data/audience.ts` (campo `grades`) |
-| **Disciplinas por etapa** | `src/data/subjects.ts` → `stages` (enquanto vazio, aparece a lista geral `items`) |
+| Textos sobre a professora, nome completo, citação, formação e cursos | `src/data/teacher.ts` (`fullName`, `quote`, `education`...) |
+| Sinais de alerta | `src/data/signals.ts` |
+| "Mais que reforço" e tabela comparativa | `src/data/approach.ts` |
+| Como funciona (5 passos) | `src/data/howItWorks.ts` |
+| **Planos, preços e frequência** | `src/data/plans.ts` (preço vazio = "Consulte valores") |
+| Para quem é, disciplinas por etapa, alunos com laudo | `src/data/forWhom.ts` (`grades`, `stages`, `inclusion`) |
 | **Depoimentos** | `src/data/testimonials.ts` |
 | Perguntas frequentes | `src/data/faq.ts` |
 | CTA final e textos do contato | `src/data/cta.ts` |
-| Itens do menu | `src/data/navigation.ts` |
+| Itens do menu (máx. 5) | `src/data/navigation.ts` |
+| Política de privacidade | `src/pages/privacidade.astro` |
 | Cores e fontes | `src/styles/global.css` (bloco `:root`) |
 
 Campos deixados vazios (`''`) **não aparecem** no site: não surgem "undefined", links vazios nem botões quebrados.

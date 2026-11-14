@@ -1,0 +1,287 @@
+---
+import Section from './ui/Section.astro';
+import SectionHeader from './ui/SectionHeader.astro';
+import Icon from './ui/Icon.astro';
+import { plansSection as data, assessment, plans } from '../data/plans';
+import { hasWhatsapp, whatsappLink, hasValue } from '../utils/contact';
+
+// Cada botão abre o WhatsApp com a mensagem do plano; sem WhatsApp, leva ao formulário
+// já com o plano escolhido (data-plan, lido pelo ContactForm).
+const linkFor = (planName: string) =>
+  hasWhatsapp
+    ? {
+        href: whatsappLink(
+          `Olá, Professora Meire! Vi o site e tenho interesse no plano ${planName}. Pode me passar mais informações?`,
+        ),
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : { href: '#contato' };
+---
+
+{
+  plans.length > 0 && (
+    <Section id="planos" tone="cream">
+      <SectionHeader id="planos-titulo" eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
+
+      <div class="assessment reveal">
+        <span class="icon-badge icon-badge--green">
+          <Icon name="search" size={24} />
+        </span>
+        <div class="assessment__text">
+          <h3>
+            <span class="assessment__tag">Passo 1</span> {assessment.name}
+          </h3>
+          <p>{assessment.text}</p>
+        </div>
+        <div class="assessment__cta">
+          <span class="assessment__price">{hasValue(assessment.price) ? assessment.price : data.emptyPrice}</span>
+          <a class="btn btn--primary" data-plan={assessment.name} {...linkFor(assessment.name)}>
+            <span>{assessment.ctaLabel}</span>
+            <Icon name="arrow-right" size={20} />
+          </a>
+        </div>
+      </div>
+
+      <ul class="plans">
+        {plans.map((plan, i) => (
+          <li class:list={['plan reveal', { 'plan--featured': plan.featured }]} style={`--delay:${i * 80}ms`}>
+            {plan.featured && <span class="plan__badge">{data.featuredLabel}</span>}
+            <h3 class="plan__name">{plan.name}</h3>
+            <p class="plan__for">{plan.forWho}</p>
+            <p class="plan__price">{hasValue(plan.price) ? plan.price : data.emptyPrice}</p>
+            <p class="plan__freq">
+              <Icon name="calendar" size={18} />
+              {hasValue(plan.frequency) ? plan.frequency : data.emptyFrequency}
+            </p>
+            <ul class="plan__features">
+              {plan.features.map((feature) => (
+                <li>
+                  <Icon name="check" size={18} strokeWidth={2.6} />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a
+              class:list={['btn', plan.featured ? 'btn--primary' : 'btn--secondary', 'plan__cta']}
+              data-plan={plan.name}
+              {...linkFor(plan.name)}
+            >
+              <span>{data.ctaLabel}</span>
+              {hasWhatsapp && <span class="sr-only">(abre o WhatsApp em nova aba)</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <p class="plans__footnote reveal">
+        <Icon name="info" size={16} />
+        {data.footnote}
+      </p>
+    </Section>
+  )
+}
+
+<script>
+  // Sem WhatsApp: o botão do plano leva ao formulário e já marca o plano escolhido.
+  document.querySelectorAll<HTMLAnchorElement>('a[data-plan][href="#contato"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const select = document.querySelector<HTMLSelectElement>('#f-plano');
+      if (select) select.value = link.dataset.plan ?? '';
+    });
+  });
+</script>
+
+<style>
+  .assessment {
+    display: grid;
+    gap: 1rem 1.5rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto 1.75rem;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    border: 2px dashed var(--green-600);
+  }
+
+  .assessment h3 {
+    margin-bottom: 0.25rem;
+  }
+
+  .assessment p {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .assessment__tag {
+    display: inline-block;
+    margin-right: 0.35rem;
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    background: var(--green-100);
+    color: var(--green-700);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: 3px;
+  }
+
+  .assessment__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+
+  .assessment__price {
+    font-weight: 800;
+    color: var(--ink-900);
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: 1.25rem;
+    max-width: 1000px;
+    margin-inline: auto;
+    list-style: none;
+    align-items: stretch;
+  }
+
+  .plan {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.5rem 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .plan--featured {
+    border: 2px solid var(--blue-700);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .plan__badge {
+    position: absolute;
+    top: -0.85rem;
+    left: 1.5rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    background: var(--yellow-500);
+    color: var(--ink-900);
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .plan__name {
+    margin-bottom: 0.35rem;
+    font-size: var(--fs-600);
+  }
+
+  .plan__for {
+    min-height: 3.2em;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .plan__price {
+    margin: 0.25rem 0 0.35rem;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--blue-800);
+  }
+
+  .plan__freq {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 1.1rem;
+    font-weight: 700;
+    font-size: 0.93rem;
+    color: var(--ink-700);
+  }
+
+  .plan__features {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+    list-style: none;
+  }
+
+  .plan__features li {
+    display: flex;
+    gap: 0.55rem;
+    align-items: flex-start;
+    font-weight: 600;
+  }
+
+  .plan__features :global(.icon) {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--green-700);
+  }
+
+  .plan__cta {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  .plans__footnote {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1.75rem auto 0;
+    max-width: 700px;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--ink-700);
+  }
+
+  .plans__footnote :global(.icon) {
+    flex-shrink: 0;
+  }
+
+  /* Celular: planos lado a lado, deslizando (em vez de 3 cartões empilhados) */
+  @media (max-width: 767px) {
+    .plans {
+      display: flex;
+      gap: 0.85rem;
+      margin-inline: calc(var(--gutter) * -1);
+      padding: 1rem var(--gutter) 0.75rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+    }
+
+    .plan {
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+    }
+
+    .plan__for {
+      min-height: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .assessment {
+      grid-template-columns: auto 1fr auto;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .plan--featured {
+      transform: translateY(-10px);
+    }
+  }
+</style>

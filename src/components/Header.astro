@@ -58,7 +58,7 @@ const { items } = Astro.props;
   const header = document.querySelector<HTMLElement>('[data-header]');
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]');
-  const mobileQuery = window.matchMedia('(max-width: 1199px)');
+  const mobileQuery = window.matchMedia('(max-width: 1023px)');
 
   const setOpen = (open: boolean) => {
     if (!toggle || !header) return;
@@ -222,7 +222,7 @@ const { items } = Astro.props;
   }
 
   /* Telas menores: menu hambúrguer */
-  @media (max-width: 1199px) {
+  @media (max-width: 1023px) {
     .menu-toggle {
       display: grid;
     }
@@ -288,7 +288,7 @@ const { items } = Astro.props;
     }
   }
 
-  @media (min-width: 1200px) and (max-width: 1320px) {
+  @media (min-width: 1024px) and (max-width: 1180px) {
     .site-nav__link {
       padding-inline: 0.45rem;
       font-size: 0.86rem;

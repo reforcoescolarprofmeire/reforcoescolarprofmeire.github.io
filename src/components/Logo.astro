@@ -8,7 +8,7 @@ interface Props {
 const { variant = 'default' } = Astro.props;
 ---
 
-<a href="#inicio" class:list={['logo', `logo--${variant}`]}>
+<a href={Astro.url.pathname.replace(/\/$/, "") === "" ? "#inicio" : "/"} class:list={["logo", `logo--${variant}`]}>
   <svg class="logo__mark" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
     <rect width="44" height="44" rx="13" fill="#215b98" />
     <path d="M10 15.5c3.8-1.4 7.6-1.2 11 1.2v14c-3.4-2.3-7.2-2.5-11-1.2z" fill="#fff" />

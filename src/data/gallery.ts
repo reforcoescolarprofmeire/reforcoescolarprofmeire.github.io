@@ -25,7 +25,7 @@ export const galleryHasIllustrativeImages = true;
 export const gallerySection = {
   eyebrow: 'Galeria',
   title: 'Um pouco do nosso dia a dia',
-  intro: 'Momentos de estudo, atenção e descoberta. Clique em uma foto para ampliar.',
+  intro: 'Momentos de estudo, atenção e descoberta. Toque em uma foto para ampliar; no celular, deslize para o lado.',
 };
 
 const files = import.meta.glob<{ default: ImageMetadata }>('../assets/images/galeria/*.{jpg,jpeg,png,webp,avif}', { eager: true });

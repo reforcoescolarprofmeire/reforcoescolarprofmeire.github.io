@@ -1,39 +1,51 @@
 export const faqSection = {
   eyebrow: 'Dúvidas',
   title: 'Dúvidas frequentes',
-  intro: 'Reunimos as perguntas que os pais costumam fazer. Se a sua não estiver aqui, é só entrar em contato.',
+  intro: 'As perguntas que as famílias mais fazem. Se a sua não estiver aqui, é só chamar.',
   items: [
     {
-      question: 'Para quais idades o reforço escolar é indicado?',
-      answer: 'O acompanhamento atende crianças, pré-adolescentes e adolescentes. As séries atendidas podem variar; entre em contato para verificar se o reforço é adequado para o seu filho.',
+      question: 'Qual a diferença entre reforço escolar e acompanhamento psicopedagógico?',
+      answer: 'O reforço revisa a matéria. O acompanhamento com abordagem psicopedagógica procura entender como o aluno aprende e por que a dificuldade acontece (leitura, atenção, organização, confiança) e trabalha isso junto com os conteúdos da escola, seguindo um plano individual.',
+    },
+    {
+      question: 'Como é a avaliação inicial?',
+      answer: 'Começa com uma conversa com a família. Depois, a professora faz encontros de observação com o aluno (leitura, escrita, raciocínio, atenção e organização) e apresenta à família o plano de acompanhamento proposto.',
+    },
+    {
+      question: 'Vocês fazem diagnóstico de TDAH, dislexia ou outros transtornos?',
+      answer: 'Não. Diagnóstico é feito por profissionais de saúde, como médicos, psicólogos e fonoaudiólogos. Quando a professora percebe sinais que pedem esse olhar, ela orienta a família a procurar o profissional adequado.',
+    },
+    {
+      question: 'Para quais idades e séries é indicado?',
+      answer: 'Para crianças e adolescentes do Fundamental I ao Ensino Médio. Na conversa inicial, a professora confirma se o acompanhamento é o mais indicado para o seu filho.',
     },
     {
       question: 'Quais matérias são trabalhadas?',
-      answer: 'O trabalho envolve áreas como Matemática, Língua Portuguesa, leitura e interpretação, produção de texto, atividades escolares e organização dos estudos. Consulte a professora para confirmar a sua necessidade específica.',
+      answer: 'Principalmente Matemática, Língua Portuguesa, leitura, interpretação e produção de texto, além das tarefas e da preparação para provas. O foco é sempre a necessidade do aluno.',
     },
     {
-      question: 'Como funcionam as aulas?',
-      answer: 'Primeiro, a professora entende as dificuldades do aluno. Depois, organiza os conteúdos que precisam de atenção e trabalha com explicações, exercícios e acompanhamento das tarefas, observando a evolução ao longo do tempo.',
+      question: 'Quanto custa?',
+      answer: 'O valor depende do plano e da frequência recomendados depois da avaliação inicial. Chame pelo WhatsApp ou preencha o formulário para receber os valores atualizados.',
     },
     {
-      question: 'As aulas são individuais ou em grupo?',
-      answer: 'Os formatos de acompanhamento e horários podem variar de acordo com a disponibilidade. Entre em contato para consultar as opções atuais.',
+      question: 'Quantas vezes por semana e quanto tempo dura?',
+      answer: 'A frequência é definida no plano individual, de acordo com a necessidade do aluno. Cada família recebe a recomendação depois da avaliação inicial.',
     },
     {
-      question: 'Existe acompanhamento para provas?',
-      answer: 'Sim. A preparação para avaliações faz parte do acompanhamento, com revisão dos conteúdos e exercícios antes das provas e trabalhos.',
+      question: 'Em quanto tempo vou ver resultado?',
+      answer: 'Cada aluno tem seu tempo, por isso não prometemos prazos. O plano tem objetivos para os próximos meses, e as devolutivas mostram à família o que já avançou e o que ainda precisa de atenção.',
     },
     {
-      question: 'A professora auxilia nas atividades da escola?',
-      answer: 'Sim. O apoio nas tarefas e atividades escolares é uma das bases do reforço, sempre incentivando o aluno a compreender e a desenvolver autonomia.',
+      question: 'Como fico sabendo da evolução do meu filho?',
+      answer: 'Pelas devolutivas periódicas: conversas com a família sobre os avanços, os desafios e os próximos passos do plano.',
     },
     {
-      question: 'Como posso saber os horários disponíveis?',
-      answer: 'Os horários variam conforme a disponibilidade. Entre em contato para consultar as opções atuais.',
+      question: 'A professora ajuda nas tarefas da escola?',
+      answer: 'Sim. As tarefas e as provas fazem parte do acompanhamento, sempre com o objetivo de que o aluno entenda e ganhe autonomia, e não apenas termine a atividade.',
     },
     {
-      question: 'Como entrar em contato?',
-      answer: 'Você pode usar os canais da seção "Vamos conversar?" ou preencher o formulário de interesse no final da página.',
+      question: 'Como agendar?',
+      answer: 'Pelo botão "Agendar conversa" ou pelo formulário no fim da página. A professora retorna para combinar a avaliação inicial.',
     },
   ],
 };

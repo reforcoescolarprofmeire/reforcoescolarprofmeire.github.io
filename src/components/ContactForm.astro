@@ -2,22 +2,24 @@
 import Icon from './ui/Icon.astro';
 import { siteConfig } from '../config/site';
 import { hasValue, whatsappNumber } from '../utils/contact';
+import { plans, assessment } from '../data/plans';
 
 const endpoint = hasValue(siteConfig.form.endpoint) ? siteConfig.form.endpoint : '';
 // Modo de envio: backend > WhatsApp > demonstrativo
 const mode = endpoint ? 'endpoint' : whatsappNumber ? 'whatsapp' : 'demo';
 
 const difficulties = [
-  'Acompanhar os conteúdos da escola',
-  'Notas abaixo do esperado',
-  'Tarefas de casa',
-  'Organização e rotina de estudos',
-  'Concentração',
-  'Preparação para provas',
   'Leitura e escrita',
   'Matemática',
+  'Notas abaixo do esperado',
+  'Atenção e concentração',
+  'Organização e rotina de estudos',
+  'Insegurança ou ansiedade com a escola',
+  'Tarefas de casa',
   'Outra',
 ];
+const planOptions = [assessment.name, ...plans.map((p) => p.name), 'Ainda não sei'];
+const times = ['Manhã', 'Tarde', 'Noite', 'Qualquer horário'];
 ---
 
 <form
@@ -29,7 +31,7 @@ const difficulties = [
   data-whatsapp={whatsappNumber || undefined}
   aria-describedby="form-descricao"
 >
-  <h3 class="form__title">Formulário de interesse</h3>
+  <h3 class="form__title">Agende uma conversa</h3>
   <p id="form-descricao" class="form__desc">
     Campos marcados com <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> são obrigatórios.
   </p>
@@ -39,12 +41,6 @@ const difficulties = [
       <label for="f-responsavel">Nome do responsável <span aria-hidden="true">*</span></label>
       <input id="f-responsavel" name="responsavel" type="text" autocomplete="name" required minlength="3" maxlength="80" aria-describedby="e-responsavel" />
       <p class="field__error" id="e-responsavel" aria-live="polite"></p>
-    </div>
-
-    <div class="field">
-      <label for="f-aluno">Nome do aluno <span aria-hidden="true">*</span></label>
-      <input id="f-aluno" name="aluno" type="text" autocomplete="off" required minlength="2" maxlength="80" aria-describedby="e-aluno" />
-      <p class="field__error" id="e-aluno" aria-live="polite"></p>
     </div>
 
     <div class="field">
@@ -68,8 +64,30 @@ const difficulties = [
       <p class="field__error" id="e-telefone" aria-live="polite"></p>
     </div>
 
+    <div class="field">
+      <label for="f-plano">Plano de interesse</label>
+      <div class="select">
+        <select id="f-plano" name="plano">
+          <option value="">Selecione uma opção</option>
+          {planOptions.map((item) => <option value={item}>{item}</option>)}
+        </select>
+        <Icon name="chevron-down" size={18} />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-horario">Melhor horário para retorno</label>
+      <div class="select">
+        <select id="f-horario" name="horario">
+          <option value="">Selecione uma opção</option>
+          {times.map((item) => <option value={item}>{item}</option>)}
+        </select>
+        <Icon name="chevron-down" size={18} />
+      </div>
+    </div>
+
     <div class="field field--full">
-      <label for="f-dificuldade">Principal dificuldade</label>
+      <label for="f-dificuldade">Principal preocupação</label>
       <div class="select">
         <select id="f-dificuldade" name="dificuldade">
           <option value="">Selecione uma opção</option>
@@ -81,7 +99,7 @@ const difficulties = [
 
     <div class="field field--full">
       <label for="f-mensagem">Mensagem</label>
-      <textarea id="f-mensagem" name="mensagem" rows="4" maxlength="1000" placeholder="Conte um pouco sobre o aluno e o que você procura."></textarea>
+      <textarea id="f-mensagem" name="mensagem" rows="4" maxlength="1000" placeholder="Conte o que você tem percebido. Não é preciso informar o nome da criança."></textarea>
     </div>
   </div>
 
@@ -93,6 +111,10 @@ const difficulties = [
       </p>
     )
   }
+
+  <p class="form__privacy">
+    Seus dados são usados só para responder ao seu contato. Veja a <a href="/privacidade/">política de privacidade</a>.
+  </p>
 
   <button type="submit" class="btn btn--primary btn--lg form__submit">
     <span>{mode === 'whatsapp' ? 'Enviar pelo WhatsApp' : 'Enviar meus dados'}</span>
@@ -123,7 +145,6 @@ const difficulties = [
 
     const rules: Record<string, (value: string) => string> = {
       responsavel: (v) => (v.trim().length < 3 ? 'Informe o nome do responsável.' : ''),
-      aluno: (v) => (v.trim().length < 2 ? 'Informe o nome do aluno.' : ''),
       telefone: (v) => (digits(v).length < 10 ? 'Informe um telefone com DDD.' : ''),
     };
 
@@ -150,12 +171,13 @@ const difficulties = [
 
     const buildMessage = (data: Record<string, string>) =>
       [
-        'Olá, Professora Meire! Gostaria de receber mais informações sobre o reforço escolar.',
+        'Olá, Professora Meire! Vi o seu site e gostaria de agendar uma conversa.',
         '',
         `Responsável: ${data.responsavel}`,
-        `Aluno: ${data.aluno}`,
-        data.serie && `Idade/série: ${data.serie}`,
-        data.dificuldade && `Principal dificuldade: ${data.dificuldade}`,
+        data.serie && `Idade/série do aluno: ${data.serie}`,
+        data.dificuldade && `Principal preocupação: ${data.dificuldade}`,
+        data.plano && `Plano de interesse: ${data.plano}`,
+        data.horario && `Melhor horário: ${data.horario}`,
         `Telefone: ${data.telefone}`,
         data.mensagem && `\nMensagem: ${data.mensagem}`,
       ]
@@ -217,6 +239,12 @@ const difficulties = [
     padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
+  }
+
+  .form__privacy {
+    margin: 1rem 0 0;
+    font-size: 0.85rem;
+    color: var(--ink-500);
   }
 
   .form__title {
